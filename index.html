@@ -32,8 +32,8 @@ body {
 svg.filters { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 .poster {
-  width: 100%;
-  max-width: 2400px;
+  width: 2552px;
+  height: 3402px;
   background: var(--ink);
   color: var(--bone);
   position: relative;
@@ -119,7 +119,7 @@ svg.filters { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 .hero-art-row {
   position: relative; z-index: 1;
-  height: 180px;
+  height: 150px;
   margin-top: 14px;
 }
 .hero-art-row svg { width: 100%; height: 100%; }
@@ -156,10 +156,10 @@ h1.title {
 
 .checker {
   position: relative; z-index: 2;
-  height: 25px;
-  margin: 29px var(--px) 25px;
+  height: 22px;
+  margin: 22px var(--px) 20px;
   background-image: repeating-conic-gradient(#000 0% 25%, var(--bone) 0% 50%);
-  background-size: 40px 25px;
+  background-size: 40px 22px;
 }
 
 .hero-tags {
@@ -224,7 +224,7 @@ h1.title {
   border-bottom: 1px solid var(--blood);
 }
 .intro {
-  padding: 40px var(--px) 36px;
+  padding: 32px var(--px) 28px;
   border-right: 1px solid var(--blood);
 }
 .intro p {
@@ -237,7 +237,7 @@ h1.title {
   background: #160708;
   display: flex;
   align-items: center;
-  padding: 32px var(--px);
+  padding: 26px var(--px);
 }
 .eq-lbl {
   display: block;
@@ -262,14 +262,14 @@ h1.title {
 /* SECTIONS */
 .sections-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   border-bottom: 1px solid var(--blood);
 }
 .section-col {
-  padding: 36px var(--px) 36px;
+  padding: 30px var(--px) 30px;
 }
 .section-col:first-child {
-  border-right: 1px solid var(--blood);
+  border-bottom: 1px solid var(--blood);
 }
 
 h2.section-title {
@@ -296,6 +296,11 @@ h2.section-title {
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
 }
 
@@ -346,7 +351,7 @@ h2.section-title {
 }
 .importance {
   background: var(--blood);
-  padding: 40px var(--px) 40px;
+  padding: 34px var(--px) 34px;
   border-right: 1px solid rgba(0,0,0,.3);
 }
 .importance h2 {
@@ -368,7 +373,7 @@ h2.section-title {
 .check-list li::before { content: "✔"; color: var(--ink); font-weight: 700; flex-shrink: 0; }
 
 .conclusion {
-  padding: 40px var(--px);
+  padding: 34px var(--px);
   background: var(--ink);
   display: flex; flex-direction: column; justify-content: center;
 }
@@ -391,7 +396,7 @@ h2.section-title {
 .credits {
   background: #110203;
   border-top: 3px solid var(--blood-bright);
-  padding: 29px var(--px);
+  padding: 24px var(--px);
 }
 .credits-inner {
   display: flex;
@@ -448,7 +453,7 @@ h2.section-title {
   display: flex;
   align-items: center;
   gap: 44px;
-  padding: 32px var(--px);
+  padding: 26px var(--px);
 }
 .footer-info {
   flex: 1;
@@ -700,7 +705,7 @@ h2.section-title {
           <h2 class="section-title">En la tecnología</h2>
           <p class="section-sub">La tecnología moderna depende de reacciones para generar energía y fabricar materiales.</p>
         </div>
-        <div class="grid-2">
+        <div class="grid-4">
           <div class="card">
             <span class="icon"><svg viewBox="0 0 64 64" fill="none">
               <rect x="8" y="20" width="40" height="24" rx="2" stroke="var(--bone)" stroke-width="3"/>
