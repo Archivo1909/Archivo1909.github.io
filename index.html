@@ -2,373 +2,577 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>REACCIONES QUÍMICAS — CARTEL 90x120</title>
+<title>REACCIONES QUÍMICAS — CARTEL</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Pacifico&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --blood:#7c0f15;
-    --blood-bright:#c41822;
-    --ink:#0b0a09;
-    --panel:#161210;
-    --bone:#f1ebdf;
-    --bone-dim:#c9c0b4;
-  }
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --blood:        #7c0f15;
+  --blood-bright: #c41822;
+  --ink:          #0b0a09;
+  --panel:        #161210;
+  --bone:         #f1ebdf;
+  --bone-dim:     #c9c0b4;
 
-  *{ box-sizing:border-box; }
+  /* fluid spacing helpers */
+  --px: clamp(16px, 4vw, 44px);
+  --gap: clamp(8px,  2vw, 14px);
+}
 
-  body{
-    margin:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  @page{ size:90cm 120cm; margin:0; }
+html { scroll-behavior: smooth; }
 
-  .poster{
-    width:90cm;
-    min-height:120cm;
-    background:var(--ink);
-    color:var(--bone);
-    font-family:'Barlow', sans-serif;
-    position:relative;
-    overflow:hidden;
-  }
+body {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: clamp(0px, 2vw, 24px) 0;
+  font-family: 'Barlow', sans-serif;
+}
 
-  /* ============ HERO ============ */
-  .hero{
-    position:relative;
-    background:linear-gradient(180deg,
-      #b21420 0%, #8c1018 22%, #5a0c10 45%, #2b0608 68%, #0b0606 88%, var(--ink) 100%);
-    overflow:hidden;
-    padding-bottom:2cm;
-  }
-  .hero::before{ /* halftone dots */
-    content:"";
-    position:absolute; inset:0;
-    background-image:radial-gradient(circle, rgba(0,0,0,0.45) 0.045cm, transparent 0.05cm);
-    background-size:0.16cm 0.16cm;
-    mix-blend-mode:multiply;
-    opacity:0.55;
-    pointer-events:none;
-  }
-  .hero::after{ /* grain */
-    content:"";
-    position:absolute; inset:0;
-    background-image:radial-gradient(circle, rgba(255,255,255,0.10) 0.02cm, transparent 0.025cm);
-    background-size:0.09cm 0.09cm;
-    mix-blend-mode:overlay;
-    opacity:0.6;
-    pointer-events:none;
-  }
+svg.filters { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-  .dash-bar{
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    gap:0.7cm;
-    padding:0 1.6cm;
-    height:1.5cm;
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    font-size:0.42cm;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--bone);
-  }
-  .dash-bar .line{ flex:1; height:0.03cm; background:rgba(241,235,223,0.55); }
-  .dash-bar span:not(.line){ white-space:nowrap; }
+/* ============================================================
+   POSTER SHELL
+   ============================================================ */
+.poster {
+  width: 100%;
+  max-width: 900px;
+  background: var(--ink);
+  color: var(--bone);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(196,24,34,.5),
+    0 0 60px rgba(196,24,34,.2);
+}
 
-  .hero-art{
-    position:relative;
-    z-index:1;
-    height:17cm;
-    margin-top:0.5cm;
-  }
-  .hero-art svg{ width:100%; height:100%; }
+/* ============================================================
+   TOP STRIP — clase / materia
+   ============================================================ */
+.top-strip {
+  background: var(--blood-bright);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px var(--px);
+}
+.top-strip .materia {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(9px, 2.2vw, 13px);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+}
+.top-strip .clase {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(13px, 3.2vw, 20px);
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: .04em;
+}
 
-  .badge-corner{
-    position:absolute;
-    z-index:3;
-    top:2.4cm; right:1.6cm;
-    display:flex; align-items:center; gap:0.45cm;
-    border:0.035cm solid var(--bone);
-    background:rgba(11,10,9,0.45);
-    padding:0.3cm 0.55cm;
-  }
-  .badge-corner .big{
-    font-family:'Anton', sans-serif;
-    font-size:0.85cm;
-    line-height:1;
-  }
-  .badge-corner .divider{ width:0.035cm; height:1.1cm; background:var(--bone); }
-  .badge-corner .lines{
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    font-size:0.3cm;
-    letter-spacing:0.07em;
-    line-height:1.45;
-    text-transform:uppercase;
-  }
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: linear-gradient(180deg,
+    #b21420 0%, #8c1018 22%, #5a0c10 48%, #2b0608 72%, #0b0606 91%, var(--ink) 100%);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: clamp(18px, 4vw, 32px);
+}
+.hero::before {            /* halftone */
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,.5) 1.5px, transparent 2px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+  opacity: .5;
+  pointer-events: none;
+}
 
-  .title-wrap{ position:relative; z-index:2; padding:0 1.4cm; margin-top:-2.2cm; }
-  h1.title{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:5.4cm;
-    line-height:0.98;
-    margin:0;
-    color:var(--bone);
-    filter:url(#roughen);
-    text-shadow:0.18cm 0.18cm 0 rgba(0,0,0,0.45);
-  }
+/* top dash bar */
+.dash-bar {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 var(--px);
+  height: clamp(32px, 5vw, 44px);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(8px, 1.8vw, 13px);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bone);
+  border-bottom: 1px solid rgba(241,235,223,.18);
+}
+.dash-bar .line { flex: 1; height: 1px; background: rgba(241,235,223,.4); }
+.dash-bar span:not(.line) { white-space: nowrap; }
 
-  .script{
-    position:relative; z-index:2;
-    font-family:'Pacifico', cursive;
-    font-size:2.5cm;
-    color:var(--blood-bright);
-    text-align:center;
-    margin-top:-0.6cm;
-    text-shadow:0.06cm 0.06cm 0 rgba(0,0,0,0.5);
-    filter:url(#roughen-soft);
-  }
+/* badge */
+.badge-corner {
+  position: absolute; z-index: 3;
+  top: clamp(36px, 8vw, 60px);
+  right: var(--px);
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--bone);
+  background: rgba(11,10,9,.55);
+  padding: clamp(6px,1.5vw,10px) clamp(10px,2.5vw,18px);
+}
+.badge-corner .big {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(18px, 4vw, 30px);
+  line-height: 1;
+}
+.badge-corner .divider { width: 1px; height: 30px; background: var(--bone); }
+.badge-corner .lines {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(7px, 1.6vw, 10px);
+  letter-spacing: .07em;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
 
-  .checker{
-    position:relative; z-index:2;
-    height:0.55cm;
-    margin:0.9cm 1.6cm 1.1cm;
-    background-image:repeating-conic-gradient(#000 0% 25%, var(--bone) 0% 50%);
-    background-size:0.85cm 0.55cm;
-  }
+/* art row */
+.hero-art-row {
+  position: relative; z-index: 1;
+  height: clamp(80px, 20vw, 160px);
+  margin-top: clamp(6px, 1.5vw, 14px);
+}
+.hero-art-row svg { width: 100%; height: 100%; }
 
-  .hero-tags{
-    position:relative; z-index:2;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:1cm;
-    padding:0 1.6cm;
-  }
-  .tag-block{
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    font-size:0.38cm;
-    line-height:1.55;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    color:var(--bone);
-    max-width:9.5cm;
-  }
-  .tag-block.right{ text-align:right; }
-  .oval-badge{
-    flex-shrink:0;
-    border:0.06cm solid var(--bone);
-    border-radius:6cm/1.6cm;
-    padding:0.45cm 1.3cm;
-    font-family:'Oswald', sans-serif;
-    font-weight:700;
-    font-size:0.6cm;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--bone);
-    white-space:nowrap;
-  }
+/* title — centrado */
+.title-wrap {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 var(--px);
+  margin-top: clamp(-28px, -5vw, -18px);
+}
+h1.title {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(48px, 14vw, 120px);
+  line-height: .92;
+  color: var(--bone);
+  filter: url(#roughen);
+  text-shadow: 4px 4px 0 rgba(0,0,0,.45);
+  letter-spacing: -1px;
+}
 
-  /* ============ CONTENT ============ */
-  .content{ position:relative; background:var(--ink); }
+.script {
+  position: relative; z-index: 2;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(16px, 4.5vw, 36px);
+  color: var(--blood-bright);
+  text-align: center;
+  margin-top: clamp(-2px, -.5vw, 0px);
+  padding: 0 var(--px);
+  text-shadow: 2px 2px 0 rgba(0,0,0,.5);
+  filter: url(#roughen-soft);
+}
 
-  .block-label{
-    display:inline-block;
-    font-family:'Oswald', sans-serif;
-    font-weight:700;
-    font-size:0.42cm;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--ink);
-    background:var(--blood-bright);
-    padding:0.2cm 0.5cm;
-    margin-bottom:0.5cm;
-  }
+.checker {
+  position: relative; z-index: 2;
+  height: clamp(10px, 2vw, 18px);
+  margin: clamp(14px, 3vw, 24px) var(--px) clamp(14px, 3vw, 22px);
+  background-image: repeating-conic-gradient(#000 0% 25%, var(--bone) 0% 50%);
+  background-size: clamp(16px,3.5vw,28px) clamp(10px,2vw,18px);
+}
 
-  .intro{
-    padding:2.2cm 1.6cm 1.8cm;
-    border-bottom:0.04cm solid var(--blood);
-  }
-  .intro p{
-    margin:0;
-    font-size:0.58cm;
-    line-height:1.6;
-    color:var(--bone-dim);
-    max-width:60cm;
-  }
+.hero-tags {
+  position: relative; z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 24px);
+  padding: 0 var(--px);
+}
+.tag-block {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(9px, 2.2vw, 15px);
+  line-height: 1.55;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+.tag-block.right { text-align: right; }
+.oval-badge {
+  flex-shrink: 0;
+  border: 1.5px solid var(--bone);
+  border-radius: 100px;
+  padding: clamp(6px,1.5vw,12px) clamp(12px,3vw,28px);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(9px, 2vw, 16px);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--bone);
+  white-space: nowrap;
+  text-align: center;
+}
 
-  .equation{
-    background:#160708;
-    border-bottom:0.04cm solid var(--blood);
-    padding:0.9cm 1.6cm;
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    letter-spacing:0.03em;
-    font-size:0.62cm;
-    color:var(--blood-bright);
-    overflow-x:auto;
-    white-space:nowrap;
-  }
-  .equation .lbl{
-    display:block;
-    font-size:0.32cm;
-    letter-spacing:0.18em;
-    color:var(--bone-dim);
-    margin-bottom:0.25cm;
-  }
-  .equation .arrow{ color:var(--bone); padding:0 0.4cm; }
+.dash-bar.bottom {
+  margin-top: clamp(16px, 3.5vw, 26px);
+  border-bottom: none;
+  border-top: 1px solid rgba(241,235,223,.18);
+}
 
-  .section-head{ padding:2cm 1.6cm 0.4cm; }
-  h2.section-title{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:1.7cm;
-    margin:0 0 0.5cm;
-    color:var(--bone);
-  }
-  .section-sub{
-    margin:0 0 1cm;
-    font-size:0.46cm;
-    line-height:1.5;
-    color:var(--bone-dim);
-    max-width:55cm;
-  }
+/* ============================================================
+   CONTENT
+   ============================================================ */
+.content { background: var(--ink); }
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:0.5cm;
-    padding:0 1.6cm 2.2cm;
-  }
-  .grid.tech{ grid-template-columns:repeat(4, 1fr); }
+.block-label {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(9px, 2vw, 12px);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--blood-bright);
+  padding: 4px 12px;
+  margin-bottom: clamp(8px, 2vw, 14px);
+}
 
-  .card{
-    background:var(--panel);
-    border:0.035cm solid var(--blood);
-    padding:0.8cm 0.7cm 0.9cm;
-  }
-  .card .icon{ display:block; width:1.5cm; height:1.5cm; margin-bottom:0.4cm; }
-  .card .icon svg{ width:100%; height:100%; display:block; }
-  .card h3{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:0.62cm;
-    margin:0 0 0.35cm;
-    color:var(--bone);
-    line-height:1.1;
-  }
-  .card p{
-    font-size:0.4cm;
-    line-height:1.5;
-    color:var(--bone-dim);
-    margin:0 0 0.35cm;
-  }
-  .card ul{ margin:0; padding:0; list-style:none; font-size:0.38cm; line-height:1.5; color:var(--bone-dim); }
-  .card ul li{ padding-left:0.4cm; position:relative; margin-bottom:0.18cm; }
-  .card ul li::before{ content:"›"; position:absolute; left:0; color:var(--blood-bright); font-weight:700; }
+/* intro + equation */
+.intro-eq {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-bottom: 1px solid var(--blood);
+}
+@media (min-width: 600px) {
+  .intro-eq { grid-template-columns: 1fr 1fr; }
+}
+.intro {
+  padding: clamp(20px, 5vw, 36px) var(--px) clamp(18px, 4.5vw, 32px);
+  border-bottom: 1px solid var(--blood);
+}
+@media (min-width: 600px) {
+  .intro { border-bottom: none; border-right: 1px solid var(--blood); }
+}
+.intro p {
+  font-size: clamp(13px, 3vw, 17px);
+  line-height: 1.65;
+  color: var(--bone-dim);
+}
 
-  .importance{
-    background:var(--blood);
-    padding:2cm 1.6cm 2.2cm;
-  }
-  .importance h2{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:1.6cm;
-    margin:0 0 0.9cm;
-    color:var(--bone);
-  }
-  .check-list{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0.7cm 1.6cm;
-    list-style:none;
-    margin:0; padding:0;
-  }
-  .check-list li{
-    display:flex; gap:0.5cm; align-items:flex-start;
-    font-size:0.5cm; line-height:1.4;
-    border-top:0.025cm solid rgba(241,235,223,0.35);
-    padding-top:0.5cm;
-  }
-  .check-list li::before{ content:"✔"; color:var(--ink); font-weight:700; flex-shrink:0; }
+.equation-wrap {
+  background: #160708;
+  display: flex;
+  align-items: center;
+  padding: clamp(16px, 4vw, 28px) var(--px);
+}
+.eq-lbl {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(8px, 1.8vw, 10px);
+  letter-spacing: .2em;
+  color: var(--bone-dim);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.eq-formula {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(13px, 3.5vw, 20px);
+  color: var(--blood-bright);
+  letter-spacing: .02em;
+  line-height: 1.6;
+}
+.eq-formula .arrow { color: var(--bone); padding: 0 6px; }
 
-  .conclusion{
-    padding:2.2cm 1.6cm 2.4cm;
-    border-top:0.04cm solid var(--blood);
-    border-bottom:0.04cm solid var(--blood);
-  }
-  .conclusion h2{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
-    text-transform:uppercase;
-    font-size:1.9cm;
-    line-height:1.05;
-    margin:0 0 0.7cm;
-    color:var(--blood-bright);
-  }
-  .conclusion p{
-    font-size:0.52cm;
-    line-height:1.6;
-    color:var(--bone-dim);
-    max-width:58cm;
-    margin:0;
-  }
+/* sections */
+.sections-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-bottom: 1px solid var(--blood);
+}
+@media (min-width: 600px) {
+  .sections-row { grid-template-columns: 1fr 1fr; }
+}
+.section-col {
+  padding: clamp(20px, 5vw, 32px) var(--px) clamp(20px, 5vw, 32px);
+}
+.section-col:first-child {
+  border-bottom: 1px solid var(--blood);
+}
+@media (min-width: 600px) {
+  .section-col:first-child { border-bottom: none; border-right: 1px solid var(--blood); }
+}
 
-  /* ============ QR FOOTER ============ */
-  .qr-footer{
-    padding:2cm 1.6cm 1.6cm;
-    text-align:center;
-  }
-  .qr-box{
-    width:7.5cm; height:7.5cm;
-    margin:0 auto 0.8cm;
-    position:relative;
-    border:0.04cm dashed rgba(241,235,223,0.55);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .qr-box .corner{ position:absolute; width:0.8cm; height:0.8cm; border:0.07cm solid var(--blood-bright); }
-  .qr-box .tl{ top:-0.07cm; left:-0.07cm; border-right:none; border-bottom:none; }
-  .qr-box .tr{ top:-0.07cm; right:-0.07cm; border-left:none; border-bottom:none; }
-  .qr-box .bl{ bottom:-0.07cm; left:-0.07cm; border-right:none; border-top:none; }
-  .qr-box .br{ bottom:-0.07cm; right:-0.07cm; border-left:none; border-top:none; }
-  .qr-box span{
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    letter-spacing:0.1em;
-    font-size:0.4cm;
-    color:var(--bone-dim);
-    text-transform:uppercase;
-  }
-  .qr-caption{
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    letter-spacing:0.12em;
-    font-size:0.42cm;
-    text-transform:uppercase;
-    color:var(--bone);
-    margin-bottom:0.25cm;
-  }
-  .qr-note{
-    font-size:0.32cm;
-    color:var(--bone-dim);
-    letter-spacing:0.03em;
-  }
+h2.section-title {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(28px, 7vw, 44px);
+  margin: 0 0 6px;
+  color: var(--bone);
+  line-height: 1;
+}
+.section-sub {
+  font-size: clamp(11px, 2.5vw, 14px);
+  line-height: 1.55;
+  color: var(--bone-dim);
+  margin-bottom: clamp(12px, 3vw, 18px);
+}
 
-  svg.filters{ position:absolute; width:0; height:0; }
+/* card grids */
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+@media (min-width: 400px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--blood);
+  padding: clamp(12px, 3vw, 18px) clamp(10px, 2.5vw, 16px) clamp(14px, 3.5vw, 20px);
+}
+.card .icon {
+  display: block;
+  width: clamp(28px, 6vw, 40px);
+  height: clamp(28px, 6vw, 40px);
+  margin-bottom: 8px;
+}
+.card .icon svg { width: 100%; height: 100%; display: block; }
+.card h3 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(13px, 3vw, 17px);
+  margin: 0 0 6px;
+  color: var(--bone);
+  line-height: 1.1;
+}
+.card p {
+  font-size: clamp(10px, 2.3vw, 13px);
+  line-height: 1.55;
+  color: var(--bone-dim);
+  margin: 0 0 6px;
+}
+.card ul {
+  list-style: none;
+  font-size: clamp(9px, 2vw, 12px);
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+.card ul li { padding-left: 10px; position: relative; margin-bottom: 3px; }
+.card ul li::before {
+  content: "›"; position: absolute; left: 0;
+  color: var(--blood-bright); font-weight: 700;
+}
+
+/* importance + conclusion */
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  .bottom-row { grid-template-columns: 1fr 1fr; }
+}
+.importance {
+  background: var(--blood);
+  padding: clamp(22px, 5vw, 36px) var(--px) clamp(22px, 5vw, 36px);
+  border-bottom: 1px solid rgba(0,0,0,.3);
+}
+@media (min-width: 600px) {
+  .importance { border-bottom: none; border-right: 1px solid rgba(0,0,0,.3); }
+}
+.importance h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(26px, 6.5vw, 42px);
+  margin: 0 0 16px;
+  color: var(--bone);
+  line-height: 1;
+}
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.check-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: clamp(12px, 2.8vw, 15px); line-height: 1.45;
+  border-top: 1px solid rgba(241,235,223,.3);
+  padding-top: 10px;
+}
+.check-list li::before { content: "✔"; color: var(--ink); font-weight: 700; flex-shrink: 0; }
+
+.conclusion {
+  padding: clamp(22px, 5vw, 36px) var(--px);
+  background: var(--ink);
+  border-top: 1px solid var(--blood);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.conclusion h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(20px, 5vw, 38px);
+  line-height: 1.05;
+  margin: 0 0 14px;
+  color: var(--blood-bright);
+}
+.conclusion p {
+  font-size: clamp(12px, 2.8vw, 15px);
+  line-height: 1.65;
+  color: var(--bone-dim);
+}
+
+/* ============================================================
+   AUTORES / CRÉDITOS
+   ============================================================ */
+.credits {
+  background: #110203;
+  border-top: 2px solid var(--blood-bright);
+  padding: clamp(18px, 4vw, 28px) var(--px);
+}
+.credits-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 3vw, 20px);
+}
+@media (min-width: 520px) {
+  .credits-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+.credits-topic {
+  flex: 1;
+  min-width: 0;
+}
+.credits-topic .cred-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(8px, 1.8vw, 10px);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blood-bright);
+  display: block;
+  margin-bottom: 6px;
+}
+.credits-topic h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(14px, 3.5vw, 22px);
+  font-weight: 400;
+  color: var(--bone);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.credits-divider {
+  width: 1px;
+  background: rgba(241,235,223,.2);
+  align-self: stretch;
+  display: none;
+}
+@media (min-width: 520px) { .credits-divider { display: block; } }
+
+.credits-team {
+  flex-shrink: 0;
+}
+.credits-team .cred-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(8px, 1.8vw, 10px);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blood-bright);
+  display: block;
+  margin-bottom: 8px;
+}
+.name-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+}
+.name-entry {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: clamp(11px, 2.5vw, 14px);
+  color: var(--bone);
+  line-height: 1.3;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.name-entry::before {
+  content: "›  ";
+  color: var(--blood-bright);
+  font-weight: 700;
+}
+
+/* ============================================================
+   FOOTER BAR
+   ============================================================ */
+.footer-bar {
+  background: #0d0202;
+  border-top: 1px solid var(--blood);
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 24px);
+  padding: clamp(10px, 2.5vw, 16px) var(--px);
+  flex-wrap: wrap;
+}
+.footer-bar .dash-bar {
+  flex: 1;
+  border: none; height: auto; padding: 0;
+  min-width: 0;
+}
+.qr-inline {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.qr-box-sm {
+  width: clamp(44px, 8vw, 64px);
+  height: clamp(44px, 8vw, 64px);
+  position: relative;
+  border: 1px dashed rgba(241,235,223,.4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.qr-box-sm .c { position: absolute; width: 8px; height: 8px; border: 2px solid var(--blood-bright); }
+.qr-box-sm .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.qr-box-sm .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.qr-box-sm .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.qr-box-sm .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+.qr-box-sm span {
+  font-family: 'Oswald', sans-serif;
+  font-size: 6px; color: var(--bone-dim);
+  text-transform: uppercase; letter-spacing: .05em;
+  text-align: center; line-height: 1.4; padding: 3px;
+}
+.qr-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(9px, 2vw, 11px);
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--bone-dim); line-height: 1.5;
+}
 </style>
 </head>
 <body>
@@ -386,11 +590,21 @@
 
 <div class="poster">
 
+  <!-- ===== STRIP SUPERIOR ===== -->
+  <div class="top-strip">
+    <div class="materia">
+      Reacciones Químicas — Conservación de la materia<br>
+      en la formación de nuevas sustancias
+    </div>
+    <div class="clase">PREPARATORIA&nbsp;4°&nbsp;"A"</div>
+  </div>
+
+  <!-- ===== HERO ===== -->
   <div class="hero">
 
     <div class="dash-bar">
       <span>QUÍMICA APLICADA</span><span class="line"></span>
-      <span>SI NO HAY REACCIÓN, NO HAY CAMBIO.</span><span class="line"></span>
+      <span class="hide-xs">SI NO HAY REACCIÓN, NO HAY CAMBIO.</span><span class="line"></span>
       <span>QUÍMICA APLICADA</span>
     </div>
 
@@ -400,37 +614,43 @@
       <span class="lines">FICHA TÉCNICA<br>QUÍMICA APLICADA</span>
     </div>
 
-    <div class="hero-art">
-      <svg viewBox="0 0 900 420" preserveAspectRatio="xMidYMid slice">
-        <g transform="translate(610,60) rotate(18)">
-          <path d="M -42,-130 L 42,-130 L 78,55 Q 78,108 0,108 Q -78,108 -78,55 Z" fill="rgba(241,235,223,0.92)"/>
-          <rect x="-16" y="-162" width="32" height="36" fill="rgba(241,235,223,0.92)"/>
-          <path d="M -60,30 Q 0,8 60,30 L 60,55 Q 60,96 0,96 Q -60,96 -60,55 Z" fill="#0b0a09" opacity="0.85"/>
-          <circle cx="-12" cy="18" r="7" fill="#0b0a09" opacity="0.6"/>
-          <circle cx="18" cy="0" r="5" fill="#0b0a09" opacity="0.6"/>
-          <circle cx="2" cy="-38" r="10" fill="rgba(11,10,9,0.5)"/>
-          <circle cx="24" cy="-66" r="6" fill="rgba(11,10,9,0.4)"/>
-          <circle cx="-6" cy="-92" r="4" fill="rgba(11,10,9,0.35)"/>
+    <!-- moléculas decorativas -->
+    <div class="hero-art-row">
+      <svg viewBox="0 0 900 200" preserveAspectRatio="xMidYMid slice">
+        <g transform="translate(640,60) rotate(18)">
+          <path d="M -38,-110 L 38,-110 L 68,48 Q 68,92 0,92 Q -68,92 -68,48 Z" fill="rgba(241,235,223,0.88)"/>
+          <rect x="-14" y="-136" width="28" height="30" fill="rgba(241,235,223,0.88)"/>
+          <path d="M -52,26 Q 0,6 52,26 L 52,48 Q 52,82 0,82 Q -52,82 -52,48 Z" fill="#0b0a09" opacity=".85"/>
+          <circle cx="-10" cy="14" r="6" fill="#0b0a09" opacity=".6"/>
+          <circle cx="16" cy="0"  r="4" fill="#0b0a09" opacity=".6"/>
         </g>
-        <g transform="translate(150,300)" stroke="rgba(241,235,223,0.55)" stroke-width="3.5" fill="rgba(241,235,223,0.85)">
-          <line x1="0" y1="0" x2="70" y2="-48"/>
-          <line x1="0" y1="0" x2="-58" y2="-22"/>
-          <line x1="0" y1="0" x2="12" y2="70"/>
-          <circle cx="0" cy="0" r="12"/>
-          <circle cx="70" cy="-48" r="8"/>
-          <circle cx="-58" cy="-22" r="8"/>
-          <circle cx="12" cy="70" r="8"/>
+        <g transform="translate(130,140)" stroke="rgba(241,235,223,0.55)" stroke-width="3.5" fill="rgba(241,235,223,0.85)">
+          <line x1="0" y1="0" x2="60" y2="-40"/>
+          <line x1="0" y1="0" x2="-50" y2="-18"/>
+          <line x1="0" y1="0" x2="10" y2="55"/>
+          <circle cx="0"  cy="0"   r="10"/>
+          <circle cx="60" cy="-40" r="7"/>
+          <circle cx="-50" cy="-18" r="7"/>
+          <circle cx="10" cy="55"  r="7"/>
         </g>
-        <g transform="translate(740,330)" stroke="rgba(241,235,223,0.35)" stroke-width="3" fill="rgba(241,235,223,0.6)">
-          <line x1="0" y1="0" x2="-45" y2="-30"/>
-          <line x1="0" y1="0" x2="40" y2="-20"/>
-          <circle cx="0" cy="0" r="8"/>
-          <circle cx="-45" cy="-30" r="5"/>
-          <circle cx="40" cy="-20" r="5"/>
+        <g transform="translate(780,155)" stroke="rgba(241,235,223,0.3)" stroke-width="2.5" fill="rgba(241,235,223,0.55)">
+          <line x1="0" y1="0" x2="-40" y2="-26"/>
+          <line x1="0" y1="0" x2="35" y2="-16"/>
+          <circle cx="0"   cy="0"   r="7"/>
+          <circle cx="-40" cy="-26" r="4"/>
+          <circle cx="35"  cy="-16" r="4"/>
+        </g>
+        <g transform="translate(350,170)" stroke="rgba(196,24,34,0.5)" stroke-width="2" fill="rgba(196,24,34,0.4)">
+          <line x1="0" y1="0" x2="30" y2="-20"/>
+          <line x1="0" y1="0" x2="-25" y2="-12"/>
+          <circle cx="0"  cy="0"   r="5"/>
+          <circle cx="30" cy="-20" r="3"/>
+          <circle cx="-25" cy="-12" r="3"/>
         </g>
       </svg>
     </div>
 
+    <!-- TÍTULO CENTRADO -->
     <div class="title-wrap">
       <h1 class="title">REACCIONES<br>QUÍMICAS</h1>
     </div>
@@ -454,145 +674,191 @@
       </div>
     </div>
 
-    <div class="dash-bar" style="margin-top:1.6cm;">
+    <div class="dash-bar bottom">
       <span>QUÍMICA APLICADA</span><span class="line"></span>
-      <span>NADA SE CREA NI SE DESTRUYE.</span><span class="line"></span>
+      <span class="hide-xs">NADA SE CREA NI SE DESTRUYE.</span><span class="line"></span>
       <span>QUÍMICA APLICADA</span>
     </div>
 
-  </div>
+  </div><!-- /hero -->
 
+  <!-- ===== CONTENT ===== -->
   <div class="content">
 
-    <div class="intro">
-      <span class="block-label">¿QUÉ SON?</span>
-      <p>Las reacciones químicas son procesos en los que unas sustancias se transforman en otras nuevas. Estas reacciones ocurren constantemente en la naturaleza y son fundamentales para el desarrollo de la tecnología moderna.</p>
+    <!-- intro + ecuación -->
+    <div class="intro-eq">
+      <div class="intro">
+        <span class="block-label">¿QUÉ SON?</span>
+        <p>Las reacciones químicas son procesos en los que unas sustancias se transforman en otras nuevas. Ocurren constantemente en la naturaleza y son fundamentales para la tecnología moderna.</p>
+      </div>
+      <div class="equation-wrap">
+        <div style="width:100%">
+          <span class="eq-lbl">Ejemplo — Fotosíntesis</span>
+          <div class="eq-formula">
+            6 CO₂ + 6 H₂O + Luz<br>
+            <span class="arrow">→</span> C₆H₁₂O₆ + 6 O₂
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="equation">
-      <span class="lbl">EJEMPLO DE REFERENCIA — FOTOSÍNTESIS</span>
-      6 CO₂ + 6 H₂O + LUZ SOLAR <span class="arrow">→</span> C₆H₁₂O₆ + 6 O₂
-    </div>
+    <!-- secciones A y B -->
+    <div class="sections-row">
 
-    <div class="section-head">
-      <span class="block-label">SECCIÓN A</span>
-      <h2 class="section-title">En el entorno</h2>
-      <p class="section-sub">Las reacciones químicas permiten el funcionamiento de muchos procesos naturales que mantienen el equilibrio de los ecosistemas.</p>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 52C12 30 30 12 52 12C52 34 34 52 12 52Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M14 50C24 40 34 30 50 14" stroke="var(--blood-bright)" stroke-width="2.5" stroke-linecap="round"/>
-        </svg></span>
-        <h3>Fotosíntesis</h3>
-        <p>Las plantas usan la energía solar para transformar agua y dióxido de carbono en glucosa y oxígeno.</p>
-        <ul>
-          <li>Produce oxígeno para los seres vivos.</li>
-          <li>Reduce el CO₂ de la atmósfera.</li>
+      <!-- SECCIÓN A -->
+      <div class="section-col">
+        <div class="section-head">
+          <span class="block-label">SECCIÓN A</span>
+          <h2 class="section-title">En el entorno</h2>
+          <p class="section-sub">Procesos naturales que mantienen el equilibrio de los ecosistemas.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M12 52C12 30 30 12 52 12C52 34 34 52 12 52Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M14 50C24 40 34 30 50 14" stroke="var(--blood-bright)" stroke-width="2.5" stroke-linecap="round"/>
+            </svg></span>
+            <h3>Fotosíntesis</h3>
+            <p>Las plantas transforman agua y CO₂ en glucosa y oxígeno usando luz solar.</p>
+            <ul>
+              <li>Produce oxígeno para los seres vivos.</li>
+              <li>Reduce el CO₂ atmosférico.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M12 28C12 18 20 10 32 10C44 10 52 18 52 28C52 30 50 32 47 32H17C14 32 12 30 12 28Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M26 32V50M38 32V50" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M20 50H44" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+            </svg></span>
+            <h3>Descomposición</h3>
+            <p>Bacterias y hongos transforman restos orgánicos en nutrientes para el suelo.</p>
+            <ul>
+              <li>Recicla nutrientes.</li>
+              <li>Favorece la fertilidad.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M20 34C13 34 8 29 8 23C8 17 13 12 19 12C21 12 23 13 25 14C28 9 34 6 40 7C47 8 52 14 52 21C52 22 52 22 52 22C57 23 60 27 60 32C60 38 55 42 49 42H22C20.5 42 20 38 20 34Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M22 48L18 56M34 48L30 56M46 48L42 56" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+            </svg></span>
+            <h3>Ciclos naturales</h3>
+            <p>Las reacciones participan en los ciclos del carbono, nitrógeno y oxígeno.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN B -->
+      <div class="section-col">
+        <div class="section-head">
+          <span class="block-label">SECCIÓN B</span>
+          <h2 class="section-title">En la tecnología</h2>
+          <p class="section-sub">La tecnología moderna depende de reacciones para generar energía y fabricar materiales.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <rect x="8" y="20" width="40" height="24" rx="2" stroke="var(--bone)" stroke-width="3"/>
+              <rect x="50" y="27" width="6" height="10" fill="var(--bone)"/>
+              <rect x="15" y="26" width="12" height="12" fill="var(--blood-bright)"/>
+            </svg></span>
+            <h3>Baterías y pilas</h3>
+            <p>Producen electricidad para teléfonos, computadoras y vehículos eléctricos.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M32 8C32 8 18 22 18 36C18 47 24 54 32 54C40 54 46 47 46 36C46 30 43 26 40 23C40 30 36 32 34 28C32 24 35 18 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M32 38C32 38 28 41 28 45C28 48.5 30 51 32 51C34 51 36 48.5 36 45C36 41 32 38 32 38Z" fill="var(--blood-bright)"/>
+            </svg></span>
+            <h3>Combustión</h3>
+            <p>La gasolina y el diésel liberan energía mediante reacciones químicas.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M8 54V34L22 42V34L36 42V26H56V54H8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M44 26V14" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M44 14C44 10 48 10 48 6" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+            </svg></span>
+            <h3>Fabricación</h3>
+            <p>Producen plásticos, pinturas, fertilizantes, medicamentos y electrónicos.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 64 64" fill="none">
+              <path d="M32 8C32 8 16 28 16 40C16 49 23 56 32 56C41 56 48 49 48 40C48 28 32 8 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 40C24 44 27 47 31 47" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+            </svg></span>
+            <h3>Tratamiento de agua</h3>
+            <p>Eliminan contaminantes para hacer el agua segura para el consumo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sections-row -->
+
+    <!-- importancia + conclusión -->
+    <div class="bottom-row">
+      <div class="importance">
+        <span class="block-label" style="background:var(--ink);color:var(--bone);">IMPORTANCIA</span>
+        <h2>Importancia</h2>
+        <ul class="check-list">
+          <li>Mantienen el equilibrio de los ecosistemas.</li>
+          <li>Permiten la producción de energía.</li>
+          <li>Facilitan el desarrollo tecnológico.</li>
+          <li>Protegen el medio ambiente mediante el reciclaje y el tratamiento de residuos.</li>
         </ul>
       </div>
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 28C12 18 20 10 32 10C44 10 52 18 52 28C52 30 50 32 47 32H17C14 32 12 30 12 28Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M26 32V50M38 32V50" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M20 50H44" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
-        </svg></span>
-        <h3>Descomposición orgánica</h3>
-        <p>Bacterias y hongos transforman restos de plantas y animales en nutrientes.</p>
-        <ul>
-          <li>Recicla nutrientes en los ecosistemas.</li>
-          <li>Favorece la fertilidad del suelo.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 34C13 34 8 29 8 23C8 17 13 12 19 12C21 12 23 13 25 14C28 9 34 6 40 7C47 8 52 14 52 21C52 21.6 52 22 52 22C57 23 60 27 60 32C60 38 55 42 49 42H22C20.5 42 20 38 20 34Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M22 48L18 56M34 48L30 56M46 48L42 56" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
-        </svg></span>
-        <h3>Ciclos naturales</h3>
-        <p>Las reacciones químicas participan en los ciclos del carbono, nitrógeno y oxígeno, esenciales para la vida.</p>
+      <div class="conclusion">
+        <span class="block-label">CONCLUSIÓN</span>
+        <h2>Sin reacción, no hay equilibrio ni progreso.</h2>
+        <p>Las reacciones químicas son esenciales tanto para la naturaleza como para la tecnología. Gracias a ellas las plantas producen oxígeno, se reciclan los nutrientes, se genera energía y se desarrollan productos que mejoran nuestra calidad de vida.</p>
       </div>
     </div>
 
-    <div class="section-head">
-      <span class="block-label">SECCIÓN B</span>
-      <h2 class="section-title">En la tecnología</h2>
-      <p class="section-sub">La tecnología moderna depende de numerosas reacciones químicas para generar energía, fabricar materiales y desarrollar nuevos productos.</p>
-    </div>
-    <div class="grid tech">
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="20" width="40" height="24" rx="2" stroke="var(--bone)" stroke-width="3"/>
-          <rect x="50" y="27" width="6" height="10" fill="var(--bone)"/>
-          <rect x="15" y="26" width="12" height="12" fill="var(--blood-bright)"/>
-        </svg></span>
-        <h3>Baterías y pilas</h3>
-        <p>Producen electricidad para alimentar teléfonos, computadoras y vehículos eléctricos.</p>
-      </div>
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 8C32 8 18 22 18 36C18 47 24 54 32 54C40 54 46 47 46 36C46 30 43 26 40 23C40 30 36 32 34 28C32 24 35 18 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M32 38C32 38 28 41 28 45C28 48.5 30 51 32 51C34 51 36 48.5 36 45C36 41 32 38 32 38Z" fill="var(--blood-bright)"/>
-        </svg></span>
-        <h3>Combustión</h3>
-        <p>La gasolina, el diésel y otros combustibles liberan energía mediante reacciones químicas.</p>
-      </div>
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 54V34L22 42V34L36 42V26H56V54H8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M44 26V14" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M44 14C44 10 48 10 48 6" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
-        </svg></span>
-        <h3>Fabricación de materiales</h3>
-        <p>Producen plásticos, pinturas, fertilizantes, medicamentos y productos electrónicos.</p>
-      </div>
-      <div class="card">
-        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 8C32 8 16 28 16 40C16 49 23 56 32 56C41 56 48 49 48 40C48 28 32 8 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
-          <path d="M24 40C24 44 27 47 31 47" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
-        </svg></span>
-        <h3>Tratamiento de agua</h3>
-        <p>Eliminan contaminantes para hacer el agua segura para su consumo.</p>
+    <!-- ===== CRÉDITOS / AUTORES ===== -->
+    <div class="credits">
+      <div class="credits-inner">
+
+        <div class="credits-topic">
+          <span class="cred-label">Tema de investigación</span>
+          <h3>Reacciones Químicas — Conservación de la materia en la formación de nuevas sustancias</h3>
+        </div>
+
+        <div class="credits-divider"></div>
+
+        <div class="credits-team">
+          <span class="cred-label">Integrantes del equipo · Preparatoria 4°&nbsp;"A"</span>
+          <div class="name-grid">
+            <span class="name-entry">David Hernández Gutiérrez</span>
+            <span class="name-entry">Iker Alonso Romero Silva</span>
+            <span class="name-entry">Ulises Ortiz Vázquez</span>
+            <span class="name-entry">Santiago Cervantes Martínez</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="importance">
-      <h2>Importancia</h2>
-      <ul class="check-list">
-        <li>Mantienen el equilibrio de los ecosistemas.</li>
-        <li>Permiten la producción de energía.</li>
-        <li>Facilitan el desarrollo tecnológico.</li>
-        <li>Ayudan a proteger el medio ambiente mediante el reciclaje y el tratamiento de residuos.</li>
-      </ul>
-    </div>
-
-    <div class="conclusion">
-      <h2>Sin reacción, no hay equilibrio ni progreso.</h2>
-      <p>Las reacciones químicas son esenciales tanto para la naturaleza como para la tecnología. Gracias a ellas las plantas producen oxígeno, se reciclan los nutrientes, se genera energía y se desarrollan productos que mejoran nuestra calidad de vida.</p>
-    </div>
-
-    <div class="qr-footer">
-      <div class="qr-box">
-        <div class="corner tl"></div>
-        <div class="corner tr"></div>
-        <div class="corner bl"></div>
-        <div class="corner br"></div>
-        <span>CÓDIGO QR</span>
+    <!-- footer -->
+    <div class="footer-bar">
+      <div class="dash-bar" style="border:none;height:auto;padding:0;">
+        <span>QUÍMICA APLICADA</span><span class="line"></span>
+        <span>FICHA N.º 01</span><span class="line"></span>
+        <span>PREPARATORIA 4° "A"</span>
       </div>
-      <div class="qr-caption">Escanea para más contenido</div>
-      <div class="qr-note">(reemplaza este espacio con tu código QR)</div>
+      <div class="qr-inline">
+        <div class="qr-box-sm">
+          <div class="c tl"></div><div class="c tr"></div>
+          <div class="c bl"></div><div class="c br"></div>
+          <span>CÓDIGO<br>QR</span>
+        </div>
+        <div class="qr-text">Escanea para<br>más contenido</div>
+      </div>
     </div>
 
-    <div class="dash-bar" style="border-top:0.04cm solid var(--blood); margin-top:1cm;">
-      <span>QUÍMICA APLICADA</span><span class="line"></span>
-      <span>FICHA N.º 01</span><span class="line"></span>
-      <span>QUÍMICA APLICADA</span>
-    </div>
+  </div><!-- /content -->
 
-  </div>
-
-</div>
+</div><!-- /poster -->
 
 </body>
 </html>
