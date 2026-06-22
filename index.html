@@ -1,322 +1,598 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergencia 1909</title>
+<meta charset="UTF-8">
+<title>REACCIONES QUÍMICAS — CARTEL 90x120</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Pacifico&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blood:#7c0f15;
+    --blood-bright:#c41822;
+    --ink:#0b0a09;
+    --panel:#161210;
+    --bone:#f1ebdf;
+    --bone-dim:#c9c0b4;
+  }
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  *{ box-sizing:border-box; }
 
-        html {
-            font-size: clamp(14px, 2.2vw, 18px);
-        }
+  body{
+    margin:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+  }
 
-        body {
-            margin: 0;
-            background-color: #000000;
-            color: #FFFFFF;
-            font-family: "Courier New", Courier, monospace;
-            text-align: center;
-            min-height: 100vh;
-            padding: clamp(15px, 5vw, 40px);
-            font-size: 1em;
-        }
+  @page{ size:90cm 120cm; margin:0; }
 
-        /* Pantalla de contraseña */
-        #login {
-            margin-top: clamp(40px, 12vh, 120px);
-            min-height: 80vh;
-            cursor: pointer;
-        }
+  .poster{
+    width:90cm;
+    min-height:120cm;
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Barlow', sans-serif;
+    position:relative;
+    overflow:hidden;
+  }
 
-        pre.ascii-title {
-            font-family: "Courier New", Courier, monospace;
-            color: #FFFFFF;
-            font-size: clamp(2px, 0.9vw, 5px);
-            line-height: 1.1;
-            text-shadow: 0 0 6px rgba(255,255,255,0.6);
-            margin: 0 auto clamp(15px, 4vh, 40px);
-            white-space: pre;
-            display: inline-block;
-            text-align: left;
-            cursor: default;
-        }
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,
+      #b21420 0%, #8c1018 22%, #5a0c10 45%, #2b0608 68%, #0b0606 88%, var(--ink) 100%);
+    overflow:hidden;
+    padding-bottom:2cm;
+  }
+  .hero::before{ /* halftone dots */
+    content:"";
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle, rgba(0,0,0,0.45) 0.045cm, transparent 0.05cm);
+    background-size:0.16cm 0.16cm;
+    mix-blend-mode:multiply;
+    opacity:0.55;
+    pointer-events:none;
+  }
+  .hero::after{ /* grain */
+    content:"";
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.10) 0.02cm, transparent 0.025cm);
+    background-size:0.09cm 0.09cm;
+    mix-blend-mode:overlay;
+    opacity:0.6;
+    pointer-events:none;
+  }
 
-        .input-box {
-            margin-top: clamp(15px, 4vh, 30px);
-            cursor: default;
-        }
+  .dash-bar{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:0.7cm;
+    padding:0 1.6cm;
+    height:1.5cm;
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:0.42cm;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--bone);
+  }
+  .dash-bar .line{ flex:1; height:0.03cm; background:rgba(241,235,223,0.55); }
+  .dash-bar span:not(.line){ white-space:nowrap; }
 
-        input {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #FFFFFF;
-            padding: clamp(10px, 2vh, 16px) 10px;
-            font-size: 1em;
-            color: #FFFFFF;
-            border-radius: 0;
-            width: clamp(180px, 60vw, 260px);
-            text-align: center;
-            letter-spacing: clamp(4px, 1.5vw, 8px);
-            font-family: "Courier New", Courier, monospace;
-        }
+  .hero-art{
+    position:relative;
+    z-index:1;
+    height:17cm;
+    margin-top:0.5cm;
+  }
+  .hero-art svg{ width:100%; height:100%; }
 
-        input:focus {
-            outline: none;
-        }
+  .badge-corner{
+    position:absolute;
+    z-index:3;
+    top:2.4cm; right:1.6cm;
+    display:flex; align-items:center; gap:0.45cm;
+    border:0.035cm solid var(--bone);
+    background:rgba(11,10,9,0.45);
+    padding:0.3cm 0.55cm;
+  }
+  .badge-corner .big{
+    font-family:'Anton', sans-serif;
+    font-size:0.85cm;
+    line-height:1;
+  }
+  .badge-corner .divider{ width:0.035cm; height:1.1cm; background:var(--bone); }
+  .badge-corner .lines{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:0.3cm;
+    letter-spacing:0.07em;
+    line-height:1.45;
+    text-transform:uppercase;
+  }
 
-        input::placeholder {
-            color: #FFFFFF;
-            opacity: 0.35;
-            text-align: center;
-            letter-spacing: normal;
-        }
+  .title-wrap{ position:relative; z-index:2; padding:0 1.4cm; margin-top:-2.2cm; }
+  h1.title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:5.4cm;
+    line-height:0.98;
+    margin:0;
+    color:var(--bone);
+    filter:url(#roughen);
+    text-shadow:0.18cm 0.18cm 0 rgba(0,0,0,0.45);
+  }
 
-        .texto-opaco {
-            opacity: 0.55;
-            font-size: 1em;
-        }
+  .script{
+    position:relative; z-index:2;
+    font-family:'Pacifico', cursive;
+    font-size:2.5cm;
+    color:var(--blood-bright);
+    text-align:center;
+    margin-top:-0.6cm;
+    text-shadow:0.06cm 0.06cm 0 rgba(0,0,0,0.5);
+    filter:url(#roughen-soft);
+  }
 
-        button {
-            margin-top: clamp(15px, 4vh, 30px);
-            padding: 2px 6px;
-            background-color: transparent;
-            border: none;
-            color: #FFFFFF;
-            font-size: 1em;
-            cursor: pointer;
-            font-family: "Courier New", Courier, monospace;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
+  .checker{
+    position:relative; z-index:2;
+    height:0.55cm;
+    margin:0.9cm 1.6cm 1.1cm;
+    background-image:repeating-conic-gradient(#000 0% 25%, var(--bone) 0% 50%);
+    background-size:0.85cm 0.55cm;
+  }
 
-        button:hover {
-            background-color: #FFFFFF;
-            color: #000000;
-        }
+  .hero-tags{
+    position:relative; z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1cm;
+    padding:0 1.6cm;
+  }
+  .tag-block{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:0.38cm;
+    line-height:1.55;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--bone);
+    max-width:9.5cm;
+  }
+  .tag-block.right{ text-align:right; }
+  .oval-badge{
+    flex-shrink:0;
+    border:0.06cm solid var(--bone);
+    border-radius:6cm/1.6cm;
+    padding:0.45cm 1.3cm;
+    font-family:'Oswald', sans-serif;
+    font-weight:700;
+    font-size:0.6cm;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bone);
+    white-space:nowrap;
+  }
 
-        /* Sección de números */
-        #numeros {
-            display: none;
-            margin-top: clamp(20px, 6vh, 50px);
-            min-height: 80vh;
-            cursor: pointer;
-        }
+  /* ============ CONTENT ============ */
+  .content{ position:relative; background:var(--ink); }
 
-        h1 {
-            font-size: 1em;
-            font-weight: bold;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin: clamp(10px, 3vh, 25px) 0;
-        }
+  .block-label{
+    display:inline-block;
+    font-family:'Oswald', sans-serif;
+    font-weight:700;
+    font-size:0.42cm;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:var(--blood-bright);
+    padding:0.2cm 0.5cm;
+    margin-bottom:0.5cm;
+  }
 
-        .lista {
-            width: 100%;
-            max-width: 420px;
-            margin: auto;
-            text-align: left;
-            margin-top: clamp(15px, 4vh, 30px);
-            border-top: 1px solid #444444;
-            cursor: default;
-        }
+  .intro{
+    padding:2.2cm 1.6cm 1.8cm;
+    border-bottom:0.04cm solid var(--blood);
+  }
+  .intro p{
+    margin:0;
+    font-size:0.58cm;
+    line-height:1.6;
+    color:var(--bone-dim);
+    max-width:60cm;
+  }
 
-        .contacto {
-            padding: clamp(10px, 3vh, 18px) 12px;
-            border-bottom: 1px solid #444444;
-            display: flex;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1em;
-        }
+  .equation{
+    background:#160708;
+    border-bottom:0.04cm solid var(--blood);
+    padding:0.9cm 1.6cm;
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    letter-spacing:0.03em;
+    font-size:0.62cm;
+    color:var(--blood-bright);
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .equation .lbl{
+    display:block;
+    font-size:0.32cm;
+    letter-spacing:0.18em;
+    color:var(--bone-dim);
+    margin-bottom:0.25cm;
+  }
+  .equation .arrow{ color:var(--bone); padding:0 0.4cm; }
 
-        .contacto:hover {
-            background-color: #FFFFFF;
-            color: #000000;
-        }
+  .section-head{ padding:2cm 1.6cm 0.4cm; }
+  h2.section-title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:1.7cm;
+    margin:0 0 0.5cm;
+    color:var(--bone);
+  }
+  .section-sub{
+    margin:0 0 1cm;
+    font-size:0.46cm;
+    line-height:1.5;
+    color:var(--bone-dim);
+    max-width:55cm;
+  }
 
-        /* Sección Archivo / Casa */
-        .seccion-extra {
-            margin-top: clamp(30px, 8vh, 60px);
-            padding-top: 0;
-            cursor: default;
-        }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0.5cm;
+    padding:0 1.6cm 2.2cm;
+  }
+  .grid.tech{ grid-template-columns:repeat(4, 1fr); }
 
-        .seccion-extra a {
-            display: inline-block;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 2px 6px;
-            font-size: 1em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
+  .card{
+    background:var(--panel);
+    border:0.035cm solid var(--blood);
+    padding:0.8cm 0.7cm 0.9cm;
+  }
+  .card .icon{ display:block; width:1.5cm; height:1.5cm; margin-bottom:0.4cm; }
+  .card .icon svg{ width:100%; height:100%; display:block; }
+  .card h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:0.62cm;
+    margin:0 0 0.35cm;
+    color:var(--bone);
+    line-height:1.1;
+  }
+  .card p{
+    font-size:0.4cm;
+    line-height:1.5;
+    color:var(--bone-dim);
+    margin:0 0 0.35cm;
+  }
+  .card ul{ margin:0; padding:0; list-style:none; font-size:0.38cm; line-height:1.5; color:var(--bone-dim); }
+  .card ul li{ padding-left:0.4cm; position:relative; margin-bottom:0.18cm; }
+  .card ul li::before{ content:"›"; position:absolute; left:0; color:var(--blood-bright); font-weight:700; }
 
-        .seccion-extra a:hover {
-            background-color: #FFFFFF;
-            color: #000000;
-        }
+  .importance{
+    background:var(--blood);
+    padding:2cm 1.6cm 2.2cm;
+  }
+  .importance h2{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:1.6cm;
+    margin:0 0 0.9cm;
+    color:var(--bone);
+  }
+  .check-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.7cm 1.6cm;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .check-list li{
+    display:flex; gap:0.5cm; align-items:flex-start;
+    font-size:0.5cm; line-height:1.4;
+    border-top:0.025cm solid rgba(241,235,223,0.35);
+    padding-top:0.5cm;
+  }
+  .check-list li::before{ content:"✔"; color:var(--ink); font-weight:700; flex-shrink:0; }
 
-        .seccion-extra a.archivo {
-            text-transform: none;
-        }
+  .conclusion{
+    padding:2.2cm 1.6cm 2.4cm;
+    border-top:0.04cm solid var(--blood);
+    border-bottom:0.04cm solid var(--blood);
+  }
+  .conclusion h2{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:1.9cm;
+    line-height:1.05;
+    margin:0 0 0.7cm;
+    color:var(--blood-bright);
+  }
+  .conclusion p{
+    font-size:0.52cm;
+    line-height:1.6;
+    color:var(--bone-dim);
+    max-width:58cm;
+    margin:0;
+  }
 
-        .casa {
-            margin-top: clamp(8px, 2vh, 14px);
-        }
-    </style>
+  /* ============ QR FOOTER ============ */
+  .qr-footer{
+    padding:2cm 1.6cm 1.6cm;
+    text-align:center;
+  }
+  .qr-box{
+    width:7.5cm; height:7.5cm;
+    margin:0 auto 0.8cm;
+    position:relative;
+    border:0.04cm dashed rgba(241,235,223,0.55);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .qr-box .corner{ position:absolute; width:0.8cm; height:0.8cm; border:0.07cm solid var(--blood-bright); }
+  .qr-box .tl{ top:-0.07cm; left:-0.07cm; border-right:none; border-bottom:none; }
+  .qr-box .tr{ top:-0.07cm; right:-0.07cm; border-left:none; border-bottom:none; }
+  .qr-box .bl{ bottom:-0.07cm; left:-0.07cm; border-right:none; border-top:none; }
+  .qr-box .br{ bottom:-0.07cm; right:-0.07cm; border-left:none; border-top:none; }
+  .qr-box span{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    letter-spacing:0.1em;
+    font-size:0.4cm;
+    color:var(--bone-dim);
+    text-transform:uppercase;
+  }
+  .qr-caption{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    letter-spacing:0.12em;
+    font-size:0.42cm;
+    text-transform:uppercase;
+    color:var(--bone);
+    margin-bottom:0.25cm;
+  }
+  .qr-note{
+    font-size:0.32cm;
+    color:var(--bone-dim);
+    letter-spacing:0.03em;
+  }
 
-    <script>
-        let realPass = "";
-
-        function maskInput(e) {
-            const input = e.target;
-            const val = input.value;
-
-            if (val.length > realPass.length) {
-                const added = val.slice(realPass.length).replace(/[^0-9]/g, "");
-                realPass = (realPass + added).slice(0, 12);
-            } else {
-                realPass = realPass.slice(0, val.length);
-            }
-
-            input.value = "*".repeat(realPass.length);
-        }
-
-        function acceder() {
-            if (realPass === "654125875369") {
-                document.getElementById("login").style.display = "none";
-                document.getElementById("numeros").style.display = "block";
-            } else {
-                alert("Código no válido");
-            }
-        }
-
-        function regresar() {
-            realPass = "";
-            location.reload();
-        }
-    </script>
-
+  svg.filters{ position:absolute; width:0; height:0; }
+</style>
 </head>
 <body>
 
-    <!-- PANTALLA DE CONTRASEÑA -->
-    <div id="login" onclick="window.location.href='https://www.instagram.com/dhg1909'">
-        <pre class="ascii-title">
-       6RIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEER     WEEEEEEEEEEEEEEEEEEEEOL      4QEEEEEEEEEEEEEEEEEEEEI     mEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIN1r      
-    1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN    
-  dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1  
- 6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR 
-rAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6
-NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAN60000000000000000000000000000000v 
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAv                                    
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAEL    4RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAi                                      
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEdiii0EAAAAR     RAAAAAAAAAAAAAAAAAAAAAAWdiid6AAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA1       iddddddddddddddddddddddddddddL  
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF     IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA      EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA      IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA      IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAA1909AAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA      IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA      IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAA      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL     IAAAAR     RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAd      NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAEF    VNAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAN                           mEAAAAAAAAAA
-mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAEL                         0AAAAAAAAAA1
- 1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAL                      jAAAAAAAAAAN 
-  6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR  
-    RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAAE      RAAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI    
-      mWIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR     RAAAAAAAAAAAAAAAAAAAAEF      CIAAAAAAAAAAAAAAAAAAAAE     iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIRd      </pre>
+<svg class="filters">
+  <filter id="roughen">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="2" result="noise" seed="7"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="9"/>
+  </filter>
+  <filter id="roughen-soft">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="noise" seed="3"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3"/>
+  </filter>
+</svg>
 
-        <div class="input-box" onclick="event.stopPropagation()">
-            <input type="text" id="pass" placeholder="Contraseña" oninput="maskInput(event)" autocomplete="off" inputmode="numeric" maxlength="12">
-        </div>
+<div class="poster">
 
-        <div onclick="event.stopPropagation()">
-            <button onclick="acceder()">Entrar</button>
-        </div>
+  <div class="hero">
+
+    <div class="dash-bar">
+      <span>QUÍMICA APLICADA</span><span class="line"></span>
+      <span>SI NO HAY REACCIÓN, NO HAY CAMBIO.</span><span class="line"></span>
+      <span>QUÍMICA APLICADA</span>
     </div>
 
-    <!-- PANTALLA DE NÚMEROS -->
-    <div id="numeros" onclick="regresar()">
-        <h1>Contactos</h1>
-
-        <div class="lista">
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522283123524'">
-                <span><strong>David</strong></span><span class="texto-opaco">+52 228 312 3524</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522281567186'">
-                <span><strong>Adriana</strong></span><span class="texto-opaco">+52 228 156 7186</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522283611513'">
-                <span><strong>Mónica</strong></span><span class="texto-opaco">+52 228 361 1513</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522299848615'">
-                <span><strong>Eduardo</strong></span><span class="texto-opaco">+52 229 984 8615</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522284106817'">
-                <span><strong>Sergio</strong></span><span class="texto-opaco">+52 228 410 6817</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522281245180'">
-                <span><strong>Eduardo</strong></span><span class="texto-opaco">+52 228 124 5180</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522282972364'">
-                <span><strong>Héctor</strong></span><span class="texto-opaco">+52 228 297 2364</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522281476572'">
-                <span><strong>Óscar</strong></span><span class="texto-opaco">+52 228 147 6572</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522283632102'">
-                <span><strong>David</strong></span><span class="texto-opaco">+52 228 363 2102</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522281257340'">
-                <span><strong>Aldo</strong></span><span class="texto-opaco">+52 228 125 7340</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522281781492'">
-                <span><strong>Betsabe</strong></span><span class="texto-opaco">+52 228 178 1492</span>
-            </div>
-
-            <div class="contacto" onclick="event.stopPropagation(); location.href='tel:+522283412324'">
-                <span><strong>Gemma</strong></span><span class="texto-opaco">+52 228 341 2324</span>
-            </div>
-
-        </div>
-
-        <div class="seccion-extra">
-            <a class="archivo" href="https://drive.google.com/file/d/1h4k9gthAi7zyb1s84F9UYYbuzjpWoh0P/view?usp=sharing" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-                Archivo 1909
-            </a>
-
-            <div class="casa">
-                <a href="https://www.google.com.mx/maps/dir//19.497249,-96.852978" onclick="event.stopPropagation()">
-                    Casa
-                </a>
-            </div>
-        </div>
-
+    <div class="badge-corner">
+      <span class="big">RQ</span>
+      <span class="divider"></span>
+      <span class="lines">FICHA TÉCNICA<br>QUÍMICA APLICADA</span>
     </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 900 420" preserveAspectRatio="xMidYMid slice">
+        <g transform="translate(610,60) rotate(18)">
+          <path d="M -42,-130 L 42,-130 L 78,55 Q 78,108 0,108 Q -78,108 -78,55 Z" fill="rgba(241,235,223,0.92)"/>
+          <rect x="-16" y="-162" width="32" height="36" fill="rgba(241,235,223,0.92)"/>
+          <path d="M -60,30 Q 0,8 60,30 L 60,55 Q 60,96 0,96 Q -60,96 -60,55 Z" fill="#0b0a09" opacity="0.85"/>
+          <circle cx="-12" cy="18" r="7" fill="#0b0a09" opacity="0.6"/>
+          <circle cx="18" cy="0" r="5" fill="#0b0a09" opacity="0.6"/>
+          <circle cx="2" cy="-38" r="10" fill="rgba(11,10,9,0.5)"/>
+          <circle cx="24" cy="-66" r="6" fill="rgba(11,10,9,0.4)"/>
+          <circle cx="-6" cy="-92" r="4" fill="rgba(11,10,9,0.35)"/>
+        </g>
+        <g transform="translate(150,300)" stroke="rgba(241,235,223,0.55)" stroke-width="3.5" fill="rgba(241,235,223,0.85)">
+          <line x1="0" y1="0" x2="70" y2="-48"/>
+          <line x1="0" y1="0" x2="-58" y2="-22"/>
+          <line x1="0" y1="0" x2="12" y2="70"/>
+          <circle cx="0" cy="0" r="12"/>
+          <circle cx="70" cy="-48" r="8"/>
+          <circle cx="-58" cy="-22" r="8"/>
+          <circle cx="12" cy="70" r="8"/>
+        </g>
+        <g transform="translate(740,330)" stroke="rgba(241,235,223,0.35)" stroke-width="3" fill="rgba(241,235,223,0.6)">
+          <line x1="0" y1="0" x2="-45" y2="-30"/>
+          <line x1="0" y1="0" x2="40" y2="-20"/>
+          <circle cx="0" cy="0" r="8"/>
+          <circle cx="-45" cy="-30" r="5"/>
+          <circle cx="40" cy="-20" r="5"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="title-wrap">
+      <h1 class="title">REACCIONES<br>QUÍMICAS</h1>
+    </div>
+    <div class="script">en el entorno y la tecnología</div>
+
+    <div class="checker"></div>
+
+    <div class="hero-tags">
+      <div class="tag-block left">
+        SI HAY ENERGÍA,<br>
+        HAY REACCIÓN.<br>
+        SIEMPRE ESTÁ<br>
+        OCURRIENDO.
+      </div>
+      <div class="oval-badge">• REACCIÓN EN CADENA •</div>
+      <div class="tag-block right">
+        DE LA CÉLULA<br>
+        AL MOTOR.<br>
+        DE LA HOJA<br>
+        AL CIRCUITO.
+      </div>
+    </div>
+
+    <div class="dash-bar" style="margin-top:1.6cm;">
+      <span>QUÍMICA APLICADA</span><span class="line"></span>
+      <span>NADA SE CREA NI SE DESTRUYE.</span><span class="line"></span>
+      <span>QUÍMICA APLICADA</span>
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <div class="intro">
+      <span class="block-label">¿QUÉ SON?</span>
+      <p>Las reacciones químicas son procesos en los que unas sustancias se transforman en otras nuevas. Estas reacciones ocurren constantemente en la naturaleza y son fundamentales para el desarrollo de la tecnología moderna.</p>
+    </div>
+
+    <div class="equation">
+      <span class="lbl">EJEMPLO DE REFERENCIA — FOTOSÍNTESIS</span>
+      6 CO₂ + 6 H₂O + LUZ SOLAR <span class="arrow">→</span> C₆H₁₂O₆ + 6 O₂
+    </div>
+
+    <div class="section-head">
+      <span class="block-label">SECCIÓN A</span>
+      <h2 class="section-title">En el entorno</h2>
+      <p class="section-sub">Las reacciones químicas permiten el funcionamiento de muchos procesos naturales que mantienen el equilibrio de los ecosistemas.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 52C12 30 30 12 52 12C52 34 34 52 12 52Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M14 50C24 40 34 30 50 14" stroke="var(--blood-bright)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg></span>
+        <h3>Fotosíntesis</h3>
+        <p>Las plantas usan la energía solar para transformar agua y dióxido de carbono en glucosa y oxígeno.</p>
+        <ul>
+          <li>Produce oxígeno para los seres vivos.</li>
+          <li>Reduce el CO₂ de la atmósfera.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 28C12 18 20 10 32 10C44 10 52 18 52 28C52 30 50 32 47 32H17C14 32 12 30 12 28Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M26 32V50M38 32V50" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M20 50H44" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+        </svg></span>
+        <h3>Descomposición orgánica</h3>
+        <p>Bacterias y hongos transforman restos de plantas y animales en nutrientes.</p>
+        <ul>
+          <li>Recicla nutrientes en los ecosistemas.</li>
+          <li>Favorece la fertilidad del suelo.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 34C13 34 8 29 8 23C8 17 13 12 19 12C21 12 23 13 25 14C28 9 34 6 40 7C47 8 52 14 52 21C52 21.6 52 22 52 22C57 23 60 27 60 32C60 38 55 42 49 42H22C20.5 42 20 38 20 34Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M22 48L18 56M34 48L30 56M46 48L42 56" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+        </svg></span>
+        <h3>Ciclos naturales</h3>
+        <p>Las reacciones químicas participan en los ciclos del carbono, nitrógeno y oxígeno, esenciales para la vida.</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <span class="block-label">SECCIÓN B</span>
+      <h2 class="section-title">En la tecnología</h2>
+      <p class="section-sub">La tecnología moderna depende de numerosas reacciones químicas para generar energía, fabricar materiales y desarrollar nuevos productos.</p>
+    </div>
+    <div class="grid tech">
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="20" width="40" height="24" rx="2" stroke="var(--bone)" stroke-width="3"/>
+          <rect x="50" y="27" width="6" height="10" fill="var(--bone)"/>
+          <rect x="15" y="26" width="12" height="12" fill="var(--blood-bright)"/>
+        </svg></span>
+        <h3>Baterías y pilas</h3>
+        <p>Producen electricidad para alimentar teléfonos, computadoras y vehículos eléctricos.</p>
+      </div>
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 8C32 8 18 22 18 36C18 47 24 54 32 54C40 54 46 47 46 36C46 30 43 26 40 23C40 30 36 32 34 28C32 24 35 18 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M32 38C32 38 28 41 28 45C28 48.5 30 51 32 51C34 51 36 48.5 36 45C36 41 32 38 32 38Z" fill="var(--blood-bright)"/>
+        </svg></span>
+        <h3>Combustión</h3>
+        <p>La gasolina, el diésel y otros combustibles liberan energía mediante reacciones químicas.</p>
+      </div>
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 54V34L22 42V34L36 42V26H56V54H8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M44 26V14" stroke="var(--bone)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M44 14C44 10 48 10 48 6" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+        </svg></span>
+        <h3>Fabricación de materiales</h3>
+        <p>Producen plásticos, pinturas, fertilizantes, medicamentos y productos electrónicos.</p>
+      </div>
+      <div class="card">
+        <span class="icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 8C32 8 16 28 16 40C16 49 23 56 32 56C41 56 48 49 48 40C48 28 32 8 32 8Z" stroke="var(--bone)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M24 40C24 44 27 47 31 47" stroke="var(--blood-bright)" stroke-width="3" stroke-linecap="round"/>
+        </svg></span>
+        <h3>Tratamiento de agua</h3>
+        <p>Eliminan contaminantes para hacer el agua segura para su consumo.</p>
+      </div>
+    </div>
+
+    <div class="importance">
+      <h2>Importancia</h2>
+      <ul class="check-list">
+        <li>Mantienen el equilibrio de los ecosistemas.</li>
+        <li>Permiten la producción de energía.</li>
+        <li>Facilitan el desarrollo tecnológico.</li>
+        <li>Ayudan a proteger el medio ambiente mediante el reciclaje y el tratamiento de residuos.</li>
+      </ul>
+    </div>
+
+    <div class="conclusion">
+      <h2>Sin reacción, no hay equilibrio ni progreso.</h2>
+      <p>Las reacciones químicas son esenciales tanto para la naturaleza como para la tecnología. Gracias a ellas las plantas producen oxígeno, se reciclan los nutrientes, se genera energía y se desarrollan productos que mejoran nuestra calidad de vida.</p>
+    </div>
+
+    <div class="qr-footer">
+      <div class="qr-box">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <span>CÓDIGO QR</span>
+      </div>
+      <div class="qr-caption">Escanea para más contenido</div>
+      <div class="qr-note">(reemplaza este espacio con tu código QR)</div>
+    </div>
+
+    <div class="dash-bar" style="border-top:0.04cm solid var(--blood); margin-top:1cm;">
+      <span>QUÍMICA APLICADA</span><span class="line"></span>
+      <span>FICHA N.º 01</span><span class="line"></span>
+      <span>QUÍMICA APLICADA</span>
+    </div>
+
+  </div>
+
+</div>
 
 </body>
 </html>
