@@ -7,9 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Pacifico&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   TOKENS
-   ============================================================ */
 :root {
   --blood:        #7c0f15;
   --blood-bright: #c41822;
@@ -17,15 +14,10 @@
   --panel:        #161210;
   --bone:         #f1ebdf;
   --bone-dim:     #c9c0b4;
-
-  /* fluid spacing helpers */
-  --px: clamp(16px, 4vw, 44px);
-  --gap: clamp(8px,  2vw, 14px);
+  --px: 28px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
 
 body {
   background: #000;
@@ -33,69 +25,59 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  padding: clamp(0px, 2vw, 24px) 0;
+  padding: 16px 0;
   font-family: 'Barlow', sans-serif;
 }
 
 svg.filters { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-/* ============================================================
-   POSTER SHELL
-   ============================================================ */
 .poster {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   background: var(--ink);
   color: var(--bone);
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(196,24,34,.5),
-    0 0 60px rgba(196,24,34,.2);
+    0 0 0 2px rgba(196,24,34,.6),
+    0 0 80px rgba(196,24,34,.25);
 }
 
-/* ============================================================
-   TOP STRIP — clase / materia
-   ============================================================ */
+/* TOP STRIP */
 .top-strip {
   background: var(--blood-bright);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 6px;
-  padding: 8px var(--px);
+  padding: 10px var(--px);
 }
 .top-strip .materia {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: clamp(9px, 2.2vw, 13px);
+  font-size: 13px;
   letter-spacing: .15em;
   text-transform: uppercase;
   color: #fff;
   line-height: 1.4;
-  flex: 1;
-  min-width: 0;
 }
 .top-strip .clase {
   font-family: 'Anton', sans-serif;
-  font-size: clamp(13px, 3.2vw, 20px);
+  font-size: 20px;
   color: #fff;
   white-space: nowrap;
   letter-spacing: .04em;
 }
 
-/* ============================================================
-   HERO
-   ============================================================ */
+/* HERO */
 .hero {
   background: linear-gradient(180deg,
     #b21420 0%, #8c1018 22%, #5a0c10 48%, #2b0608 72%, #0b0606 91%, var(--ink) 100%);
   position: relative;
   overflow: hidden;
-  padding-bottom: clamp(18px, 4vw, 32px);
+  padding-bottom: 20px;
 }
-.hero::before {            /* halftone */
+.hero::before {
   content: "";
   position: absolute; inset: 0;
   background-image: radial-gradient(circle, rgba(0,0,0,.5) 1.5px, transparent 2px);
@@ -105,69 +87,55 @@ svg.filters { position: absolute; width: 0; height: 0; overflow: hidden; }
   pointer-events: none;
 }
 
-/* top dash bar */
 .dash-bar {
   position: relative; z-index: 2;
   display: flex; align-items: center; gap: 10px;
   padding: 0 var(--px);
-  height: clamp(32px, 5vw, 44px);
+  height: 36px;
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  font-size: clamp(8px, 1.8vw, 13px);
+  font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--bone);
   border-bottom: 1px solid rgba(241,235,223,.18);
 }
 .dash-bar .line { flex: 1; height: 1px; background: rgba(241,235,223,.4); }
-.dash-bar span:not(.line) { white-space: nowrap; }
 
-/* badge */
 .badge-corner {
   position: absolute; z-index: 3;
-  top: clamp(36px, 8vw, 60px);
-  right: var(--px);
+  top: 44px; right: var(--px);
   display: flex; align-items: center; gap: 10px;
   border: 1px solid var(--bone);
   background: rgba(11,10,9,.55);
-  padding: clamp(6px,1.5vw,10px) clamp(10px,2.5vw,18px);
+  padding: 8px 16px;
 }
-.badge-corner .big {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(18px, 4vw, 30px);
-  line-height: 1;
-}
-.badge-corner .divider { width: 1px; height: 30px; background: var(--bone); }
+.badge-corner .big { font-family: 'Anton', sans-serif; font-size: 26px; line-height: 1; }
+.badge-corner .divider { width: 1px; height: 26px; background: var(--bone); }
 .badge-corner .lines {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: clamp(7px, 1.6vw, 10px);
-  letter-spacing: .07em;
-  line-height: 1.55;
-  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif; font-weight: 600;
+  font-size: 9px; letter-spacing: .07em; line-height: 1.55; text-transform: uppercase;
 }
 
-/* art row */
 .hero-art-row {
   position: relative; z-index: 1;
-  height: clamp(80px, 20vw, 160px);
-  margin-top: clamp(6px, 1.5vw, 14px);
+  height: 100px;
+  margin-top: 8px;
 }
 .hero-art-row svg { width: 100%; height: 100%; }
 
-/* title — centrado */
 .title-wrap {
   position: relative; z-index: 2;
   text-align: center;
   padding: 0 var(--px);
-  margin-top: clamp(-28px, -5vw, -18px);
+  margin-top: -22px;
 }
 h1.title {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(48px, 14vw, 120px);
-  line-height: .92;
+  font-size: clamp(64px, 13vw, 118px);
+  line-height: .9;
   color: var(--bone);
   filter: url(#roughen);
   text-shadow: 4px 4px 0 rgba(0,0,0,.45);
@@ -177,21 +145,21 @@ h1.title {
 .script {
   position: relative; z-index: 2;
   font-family: 'Pacifico', cursive;
-  font-size: clamp(16px, 4.5vw, 36px);
+  font-size: clamp(18px, 3.5vw, 30px);
   color: var(--blood-bright);
   text-align: center;
-  margin-top: clamp(-2px, -.5vw, 0px);
   padding: 0 var(--px);
   text-shadow: 2px 2px 0 rgba(0,0,0,.5);
   filter: url(#roughen-soft);
+  margin-top: 2px;
 }
 
 .checker {
   position: relative; z-index: 2;
-  height: clamp(10px, 2vw, 18px);
-  margin: clamp(14px, 3vw, 24px) var(--px) clamp(14px, 3vw, 22px);
+  height: 14px;
+  margin: 16px var(--px) 14px;
   background-image: repeating-conic-gradient(#000 0% 25%, var(--bone) 0% 50%);
-  background-size: clamp(16px,3.5vw,28px) clamp(10px,2vw,18px);
+  background-size: 22px 14px;
 }
 
 .hero-tags {
@@ -199,13 +167,13 @@ h1.title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(8px, 2vw, 24px);
+  gap: 20px;
   padding: 0 var(--px);
 }
 .tag-block {
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  font-size: clamp(9px, 2.2vw, 15px);
+  font-size: clamp(11px, 1.8vw, 15px);
   line-height: 1.55;
   letter-spacing: .04em;
   text-transform: uppercase;
@@ -216,10 +184,10 @@ h1.title {
   flex-shrink: 0;
   border: 1.5px solid var(--bone);
   border-radius: 100px;
-  padding: clamp(6px,1.5vw,12px) clamp(12px,3vw,28px);
+  padding: 10px 24px;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: clamp(9px, 2vw, 16px);
+  font-size: clamp(10px, 1.6vw, 14px);
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--bone);
@@ -228,48 +196,40 @@ h1.title {
 }
 
 .dash-bar.bottom {
-  margin-top: clamp(16px, 3.5vw, 26px);
+  margin-top: 18px;
   border-bottom: none;
   border-top: 1px solid rgba(241,235,223,.18);
 }
 
-/* ============================================================
-   CONTENT
-   ============================================================ */
+/* CONTENT */
 .content { background: var(--ink); }
 
 .block-label {
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: clamp(9px, 2vw, 12px);
+  font-size: 11px;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink);
   background: var(--blood-bright);
   padding: 4px 12px;
-  margin-bottom: clamp(8px, 2vw, 14px);
+  margin-bottom: 10px;
 }
 
-/* intro + equation */
+/* INTRO + ECUACIÓN */
 .intro-eq {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid var(--blood);
-}
-@media (min-width: 600px) {
-  .intro-eq { grid-template-columns: 1fr 1fr; }
 }
 .intro {
-  padding: clamp(20px, 5vw, 36px) var(--px) clamp(18px, 4.5vw, 32px);
-  border-bottom: 1px solid var(--blood);
-}
-@media (min-width: 600px) {
-  .intro { border-bottom: none; border-right: 1px solid var(--blood); }
+  padding: 22px var(--px) 20px;
+  border-right: 1px solid var(--blood);
 }
 .intro p {
-  font-size: clamp(13px, 3vw, 17px);
-  line-height: 1.65;
+  font-size: clamp(14px, 1.8vw, 17px);
+  line-height: 1.6;
   color: var(--bone-dim);
 }
 
@@ -277,301 +237,288 @@ h1.title {
   background: #160708;
   display: flex;
   align-items: center;
-  padding: clamp(16px, 4vw, 28px) var(--px);
+  padding: 18px var(--px);
 }
 .eq-lbl {
   display: block;
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  font-size: clamp(8px, 1.8vw, 10px);
+  font-size: 9px;
   letter-spacing: .2em;
   color: var(--bone-dim);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 .eq-formula {
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  font-size: clamp(13px, 3.5vw, 20px);
+  font-size: clamp(16px, 2.4vw, 22px);
   color: var(--blood-bright);
   letter-spacing: .02em;
   line-height: 1.6;
 }
 .eq-formula .arrow { color: var(--bone); padding: 0 6px; }
 
-/* sections */
+/* SECTIONS */
 .sections-row {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid var(--blood);
-}
-@media (min-width: 600px) {
-  .sections-row { grid-template-columns: 1fr 1fr; }
 }
 .section-col {
-  padding: clamp(20px, 5vw, 32px) var(--px) clamp(20px, 5vw, 32px);
+  padding: 20px var(--px) 20px;
 }
 .section-col:first-child {
-  border-bottom: 1px solid var(--blood);
-}
-@media (min-width: 600px) {
-  .section-col:first-child { border-bottom: none; border-right: 1px solid var(--blood); }
+  border-right: 1px solid var(--blood);
 }
 
 h2.section-title {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(28px, 7vw, 44px);
-  margin: 0 0 6px;
+  font-size: clamp(30px, 4.5vw, 44px);
+  margin: 0 0 4px;
   color: var(--bone);
   line-height: 1;
 }
 .section-sub {
-  font-size: clamp(11px, 2.5vw, 14px);
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--bone-dim);
-  margin-bottom: clamp(12px, 3vw, 18px);
+  margin-bottom: 12px;
 }
 
-/* card grids */
 .grid-3 {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--gap);
-}
-@media (min-width: 400px) {
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--gap);
+  gap: 8px;
 }
 
 .card {
   background: var(--panel);
   border: 1px solid var(--blood);
-  padding: clamp(12px, 3vw, 18px) clamp(10px, 2.5vw, 16px) clamp(14px, 3.5vw, 20px);
+  padding: 12px 12px 14px;
 }
 .card .icon {
   display: block;
-  width: clamp(28px, 6vw, 40px);
-  height: clamp(28px, 6vw, 40px);
-  margin-bottom: 8px;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 7px;
 }
 .card .icon svg { width: 100%; height: 100%; display: block; }
 .card h3 {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(13px, 3vw, 17px);
-  margin: 0 0 6px;
+  font-size: clamp(13px, 1.7vw, 16px);
+  margin: 0 0 5px;
   color: var(--bone);
   line-height: 1.1;
 }
 .card p {
-  font-size: clamp(10px, 2.3vw, 13px);
-  line-height: 1.55;
+  font-size: clamp(11px, 1.4vw, 13px);
+  line-height: 1.5;
   color: var(--bone-dim);
-  margin: 0 0 6px;
+  margin: 0 0 5px;
 }
 .card ul {
   list-style: none;
-  font-size: clamp(9px, 2vw, 12px);
+  font-size: clamp(10px, 1.3vw, 12px);
   line-height: 1.5;
   color: var(--bone-dim);
 }
-.card ul li { padding-left: 10px; position: relative; margin-bottom: 3px; }
+.card ul li { padding-left: 10px; position: relative; margin-bottom: 2px; }
 .card ul li::before {
   content: "›"; position: absolute; left: 0;
   color: var(--blood-bright); font-weight: 700;
 }
 
-/* importance + conclusion */
+/* BOTTOM ROW */
 .bottom-row {
   display: grid;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 600px) {
-  .bottom-row { grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--blood);
 }
 .importance {
   background: var(--blood);
-  padding: clamp(22px, 5vw, 36px) var(--px) clamp(22px, 5vw, 36px);
-  border-bottom: 1px solid rgba(0,0,0,.3);
-}
-@media (min-width: 600px) {
-  .importance { border-bottom: none; border-right: 1px solid rgba(0,0,0,.3); }
+  padding: 22px var(--px) 22px;
+  border-right: 1px solid rgba(0,0,0,.3);
 }
 .importance h2 {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(26px, 6.5vw, 42px);
-  margin: 0 0 16px;
+  font-size: clamp(28px, 3.8vw, 40px);
+  margin: 0 0 14px;
   color: var(--bone);
   line-height: 1;
 }
-.check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .check-list li {
-  display: flex; gap: 12px; align-items: flex-start;
-  font-size: clamp(12px, 2.8vw, 15px); line-height: 1.45;
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: clamp(12px, 1.5vw, 15px); line-height: 1.4;
   border-top: 1px solid rgba(241,235,223,.3);
-  padding-top: 10px;
+  padding-top: 8px;
 }
 .check-list li::before { content: "✔"; color: var(--ink); font-weight: 700; flex-shrink: 0; }
 
 .conclusion {
-  padding: clamp(22px, 5vw, 36px) var(--px);
+  padding: 22px var(--px);
   background: var(--ink);
-  border-top: 1px solid var(--blood);
   display: flex; flex-direction: column; justify-content: center;
 }
 .conclusion h2 {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(20px, 5vw, 38px);
+  font-size: clamp(20px, 3vw, 34px);
   line-height: 1.05;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   color: var(--blood-bright);
 }
 .conclusion p {
-  font-size: clamp(12px, 2.8vw, 15px);
+  font-size: clamp(12px, 1.5vw, 14px);
   line-height: 1.65;
   color: var(--bone-dim);
 }
 
-/* ============================================================
-   AUTORES / CRÉDITOS
-   ============================================================ */
+/* CRÉDITOS */
 .credits {
   background: #110203;
   border-top: 2px solid var(--blood-bright);
-  padding: clamp(18px, 4vw, 28px) var(--px);
+  padding: 16px var(--px);
 }
 .credits-inner {
   display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 3vw, 20px);
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
 }
-@media (min-width: 520px) {
-  .credits-inner {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-}
-.credits-topic {
-  flex: 1;
-  min-width: 0;
-}
-.credits-topic .cred-label {
+.credits-topic { flex: 1; min-width: 0; }
+.cred-label {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: clamp(8px, 1.8vw, 10px);
+  font-size: 9px;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--blood-bright);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 .credits-topic h3 {
   font-family: 'Anton', sans-serif;
-  font-size: clamp(14px, 3.5vw, 22px);
+  font-size: clamp(14px, 2vw, 20px);
   font-weight: 400;
   color: var(--bone);
   line-height: 1.2;
   text-transform: uppercase;
 }
-
 .credits-divider {
   width: 1px;
   background: rgba(241,235,223,.2);
   align-self: stretch;
-  display: none;
 }
-@media (min-width: 520px) { .credits-divider { display: block; } }
-
-.credits-team {
-  flex-shrink: 0;
-}
-.credits-team .cred-label {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: clamp(8px, 1.8vw, 10px);
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--blood-bright);
-  display: block;
-  margin-bottom: 8px;
-}
+.credits-team { flex-shrink: 0; }
 .name-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 20px;
+  gap: 5px 18px;
 }
 .name-entry {
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
-  font-size: clamp(11px, 2.5vw, 14px);
+  font-size: clamp(11px, 1.4vw, 14px);
   color: var(--bone);
   line-height: 1.3;
   letter-spacing: .01em;
   white-space: nowrap;
 }
-.name-entry::before {
-  content: "›  ";
-  color: var(--blood-bright);
-  font-weight: 700;
-}
+.name-entry::before { content: "›  "; color: var(--blood-bright); font-weight: 700; }
 
-/* ============================================================
-   FOOTER BAR
-   ============================================================ */
+/* FOOTER con QR GRANDE */
 .footer-bar {
   background: #0d0202;
   border-top: 1px solid var(--blood);
   display: flex;
   align-items: center;
-  gap: clamp(12px, 3vw, 24px);
-  padding: clamp(10px, 2.5vw, 16px) var(--px);
-  flex-wrap: wrap;
+  gap: 24px;
+  padding: 18px var(--px);
 }
-.footer-bar .dash-bar {
+.footer-info {
   flex: 1;
-  border: none; height: auto; padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--bone);
   min-width: 0;
 }
+.footer-info .line { flex: 1; height: 1px; background: rgba(241,235,223,.4); }
+
 .qr-inline {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 14px;
   flex-shrink: 0;
 }
-.qr-box-sm {
-  width: clamp(44px, 8vw, 64px);
-  height: clamp(44px, 8vw, 64px);
+
+/* QR grande */
+.qr-box {
+  width: 120px;
+  height: 120px;
   position: relative;
-  border: 1px dashed rgba(241,235,223,.4);
-  display: flex; align-items: center; justify-content: center;
+  border: 2px dashed rgba(241,235,223,.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  background: rgba(196,24,34,.06);
+  gap: 5px;
+  padding: 8px;
 }
-.qr-box-sm .c { position: absolute; width: 8px; height: 8px; border: 2px solid var(--blood-bright); }
-.qr-box-sm .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-.qr-box-sm .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-.qr-box-sm .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-.qr-box-sm .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
-.qr-box-sm span {
+.qr-box .c { position: absolute; width: 14px; height: 14px; border: 3px solid var(--blood-bright); }
+.qr-box .tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+.qr-box .tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+.qr-box .bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+.qr-box .br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+.qr-inner {
+  display: grid;
+  grid-template-columns: repeat(7, 9px);
+  grid-template-rows: repeat(7, 9px);
+  gap: 1.5px;
+}
+.qr-inner .q { background: transparent; border-radius: 1px; }
+.qr-inner .q.f { background: var(--bone); }
+.qr-inner .q.b { background: var(--blood-bright); }
+
+.qr-label {
   font-family: 'Oswald', sans-serif;
-  font-size: 6px; color: var(--bone-dim);
-  text-transform: uppercase; letter-spacing: .05em;
-  text-align: center; line-height: 1.4; padding: 3px;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  text-align: center;
+  line-height: 1.4;
 }
+
 .qr-text {
   font-family: 'Oswald', sans-serif;
-  font-size: clamp(9px, 2vw, 11px);
-  letter-spacing: .1em; text-transform: uppercase;
-  color: var(--bone-dim); line-height: 1.5;
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  line-height: 1.6;
 }
 </style>
 </head>
@@ -590,21 +537,20 @@ h2.section-title {
 
 <div class="poster">
 
-  <!-- ===== STRIP SUPERIOR ===== -->
+  <!-- STRIP SUPERIOR -->
   <div class="top-strip">
     <div class="materia">
-      Reacciones Químicas — Conservación de la materia<br>
-      en la formación de nuevas sustancias
+      Reacciones Químicas — Conservación de la materia en la formación de nuevas sustancias
     </div>
     <div class="clase">PREPARATORIA&nbsp;4°&nbsp;"A"</div>
   </div>
 
-  <!-- ===== HERO ===== -->
+  <!-- HERO -->
   <div class="hero">
 
     <div class="dash-bar">
       <span>QUÍMICA APLICADA</span><span class="line"></span>
-      <span class="hide-xs">SI NO HAY REACCIÓN, NO HAY CAMBIO.</span><span class="line"></span>
+      <span>SI NO HAY REACCIÓN, NO HAY CAMBIO.</span><span class="line"></span>
       <span>QUÍMICA APLICADA</span>
     </div>
 
@@ -614,43 +560,41 @@ h2.section-title {
       <span class="lines">FICHA TÉCNICA<br>QUÍMICA APLICADA</span>
     </div>
 
-    <!-- moléculas decorativas -->
     <div class="hero-art-row">
-      <svg viewBox="0 0 900 200" preserveAspectRatio="xMidYMid slice">
-        <g transform="translate(640,60) rotate(18)">
-          <path d="M -38,-110 L 38,-110 L 68,48 Q 68,92 0,92 Q -68,92 -68,48 Z" fill="rgba(241,235,223,0.88)"/>
-          <rect x="-14" y="-136" width="28" height="30" fill="rgba(241,235,223,0.88)"/>
-          <path d="M -52,26 Q 0,6 52,26 L 52,48 Q 52,82 0,82 Q -52,82 -52,48 Z" fill="#0b0a09" opacity=".85"/>
-          <circle cx="-10" cy="14" r="6" fill="#0b0a09" opacity=".6"/>
-          <circle cx="16" cy="0"  r="4" fill="#0b0a09" opacity=".6"/>
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid slice">
+        <g transform="translate(720,55) rotate(18)">
+          <path d="M -38,-70 L 38,-70 L 58,36 Q 58,72 0,72 Q -58,72 -58,36 Z" fill="rgba(241,235,223,0.88)"/>
+          <rect x="-12" y="-90" width="24" height="22" fill="rgba(241,235,223,0.88)"/>
+          <path d="M -42,18 Q 0,4 42,18 L 42,36 Q 42,64 0,64 Q -42,64 -42,36 Z" fill="#0b0a09" opacity=".85"/>
+          <circle cx="-8" cy="10" r="5" fill="#0b0a09" opacity=".6"/>
+          <circle cx="13" cy="0"  r="3.5" fill="#0b0a09" opacity=".6"/>
         </g>
-        <g transform="translate(130,140)" stroke="rgba(241,235,223,0.55)" stroke-width="3.5" fill="rgba(241,235,223,0.85)">
-          <line x1="0" y1="0" x2="60" y2="-40"/>
-          <line x1="0" y1="0" x2="-50" y2="-18"/>
-          <line x1="0" y1="0" x2="10" y2="55"/>
-          <circle cx="0"  cy="0"   r="10"/>
-          <circle cx="60" cy="-40" r="7"/>
-          <circle cx="-50" cy="-18" r="7"/>
-          <circle cx="10" cy="55"  r="7"/>
+        <g transform="translate(140,90)" stroke="rgba(241,235,223,0.55)" stroke-width="3" fill="rgba(241,235,223,0.85)">
+          <line x1="0" y1="0" x2="50" y2="-30"/>
+          <line x1="0" y1="0" x2="-42" y2="-14"/>
+          <line x1="0" y1="0" x2="8" y2="42"/>
+          <circle cx="0"  cy="0"   r="9"/>
+          <circle cx="50" cy="-30" r="6"/>
+          <circle cx="-42" cy="-14" r="6"/>
+          <circle cx="8" cy="42"  r="6"/>
         </g>
-        <g transform="translate(780,155)" stroke="rgba(241,235,223,0.3)" stroke-width="2.5" fill="rgba(241,235,223,0.55)">
-          <line x1="0" y1="0" x2="-40" y2="-26"/>
-          <line x1="0" y1="0" x2="35" y2="-16"/>
-          <circle cx="0"   cy="0"   r="7"/>
-          <circle cx="-40" cy="-26" r="4"/>
-          <circle cx="35"  cy="-16" r="4"/>
+        <g transform="translate(860,95)" stroke="rgba(241,235,223,0.3)" stroke-width="2" fill="rgba(241,235,223,0.55)">
+          <line x1="0" y1="0" x2="-35" y2="-22"/>
+          <line x1="0" y1="0" x2="30" y2="-14"/>
+          <circle cx="0"   cy="0"   r="6"/>
+          <circle cx="-35" cy="-22" r="3.5"/>
+          <circle cx="30" cy="-14" r="3.5"/>
         </g>
-        <g transform="translate(350,170)" stroke="rgba(196,24,34,0.5)" stroke-width="2" fill="rgba(196,24,34,0.4)">
-          <line x1="0" y1="0" x2="30" y2="-20"/>
-          <line x1="0" y1="0" x2="-25" y2="-12"/>
-          <circle cx="0"  cy="0"   r="5"/>
-          <circle cx="30" cy="-20" r="3"/>
-          <circle cx="-25" cy="-12" r="3"/>
+        <g transform="translate(390,100)" stroke="rgba(196,24,34,0.5)" stroke-width="2" fill="rgba(196,24,34,0.4)">
+          <line x1="0" y1="0" x2="25" y2="-16"/>
+          <line x1="0" y1="0" x2="-20" y2="-10"/>
+          <circle cx="0"  cy="0"   r="4.5"/>
+          <circle cx="25" cy="-16" r="2.5"/>
+          <circle cx="-20" cy="-10" r="2.5"/>
         </g>
       </svg>
     </div>
 
-    <!-- TÍTULO CENTRADO -->
     <div class="title-wrap">
       <h1 class="title">REACCIONES<br>QUÍMICAS</h1>
     </div>
@@ -676,13 +620,13 @@ h2.section-title {
 
     <div class="dash-bar bottom">
       <span>QUÍMICA APLICADA</span><span class="line"></span>
-      <span class="hide-xs">NADA SE CREA NI SE DESTRUYE.</span><span class="line"></span>
+      <span>NADA SE CREA NI SE DESTRUYE.</span><span class="line"></span>
       <span>QUÍMICA APLICADA</span>
     </div>
 
   </div><!-- /hero -->
 
-  <!-- ===== CONTENT ===== -->
+  <!-- CONTENT -->
   <div class="content">
 
     <!-- intro + ecuación -->
@@ -815,17 +759,14 @@ h2.section-title {
       </div>
     </div>
 
-    <!-- ===== CRÉDITOS / AUTORES ===== -->
+    <!-- CRÉDITOS -->
     <div class="credits">
       <div class="credits-inner">
-
         <div class="credits-topic">
           <span class="cred-label">Tema de investigación</span>
           <h3>Reacciones Químicas — Conservación de la materia en la formación de nuevas sustancias</h3>
         </div>
-
         <div class="credits-divider"></div>
-
         <div class="credits-team">
           <span class="cred-label">Integrantes del equipo · Preparatoria 4°&nbsp;"A"</span>
           <div class="name-grid">
@@ -835,22 +776,30 @@ h2.section-title {
             <span class="name-entry">Santiago Cervantes Martínez</span>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- footer -->
+    <!-- FOOTER con QR GRANDE -->
     <div class="footer-bar">
-      <div class="dash-bar" style="border:none;height:auto;padding:0;">
+      <div class="footer-info">
         <span>QUÍMICA APLICADA</span><span class="line"></span>
         <span>FICHA N.º 01</span><span class="line"></span>
         <span>PREPARATORIA 4° "A"</span>
       </div>
       <div class="qr-inline">
-        <div class="qr-box-sm">
+        <div class="qr-box">
           <div class="c tl"></div><div class="c tr"></div>
           <div class="c bl"></div><div class="c br"></div>
-          <span>CÓDIGO<br>QR</span>
+          <div class="qr-inner">
+            <div class="q f"></div><div class="q f"></div><div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q f"></div><div class="q f"></div>
+            <div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q"></div><div class="q f"></div>
+            <div class="q f"></div><div class="q f"></div><div class="q f"></div><div class="q b"></div><div class="q f"></div><div class="q f"></div><div class="q f"></div>
+            <div class="q"></div><div class="q b"></div><div class="q"></div><div class="q f"></div><div class="q"></div><div class="q b"></div><div class="q"></div>
+            <div class="q f"></div><div class="q f"></div><div class="q f"></div><div class="q b"></div><div class="q f"></div><div class="q f"></div><div class="q f"></div>
+            <div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q"></div><div class="q f"></div>
+            <div class="q f"></div><div class="q f"></div><div class="q f"></div><div class="q"></div><div class="q f"></div><div class="q f"></div><div class="q f"></div>
+          </div>
+          <div class="qr-label">CÓDIGO QR · ESCANEAR</div>
         </div>
         <div class="qr-text">Escanea para<br>más contenido</div>
       </div>
