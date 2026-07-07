@@ -4,36 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Círculo en Plano Cartesiano</title>
-    <meta name="description" content="Visualización interactiva de 150 puntos equidistantes sobre una circunferencia en el plano cartesiano, con tabla de coordenadas y panel de propiedades. Proyecto académico de Temas Selectos de Matemáticas.">
-    <meta name="theme-color" content="#1a1816">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1816'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23c9a04e' stroke-width='1.4' stroke-dasharray='2,2'/%3E%3Ccircle cx='26' cy='16' r='2.2' fill='%23e8c076'/%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
         }
 
         /* ══════════════════════════════════════════════
-           MONOCROMO CÁLIDO + ACENTO DORADO — MINIMALISTA
+           TEMA OSCURO
         ══════════════════════════════════════════════ */
         :root, [data-theme="dark"] {
-            --bg: #1a1816;
-            --surface: #211f1c;
-            --surface2: #26231e;
-            --border: #322e27;
-            --border-soft: #2a271f;
-            --text: #ece6da;
-            --text-muted: #9c9384;
-            --text-faint: #635b4c;
-            --accent: #c9a04e;
-            --accent-strong: #e8c076;
-            --accent-pastel-bg: #33291a;
-            --accent-pastel-text: #d9b168;
-            --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.18);
-            --focus-ring: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent);
+            --bg: #111110;
+            --surface: #1c1c1a;
+            --surface2: #242422;
+            --surface3: #2c2c28;
+            --border: #2e2e2a;
+            --border2: #3a3a34;
+            --text: #e8e8e0;
+            --text-muted: #8a8a78;
+            --text-faint: #505048;
+            --accent: #c9a876;
+            --accent-light: #2a251c;
+            --accent-mid: #4a4130;
+            --point: #6e6e62;
+            --canvas-grid: #202020;
+            --canvas-axis: #3a3a30;
+            --canvas-axis-label: #505048;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
         }
 
         html, body {
@@ -47,57 +46,17 @@
             display: flex;
             flex-direction: column;
             font-size: 13px;
-            line-height: 1.65;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* ── SKIP LINK ── */
-        .skip-link {
-            position: absolute;
-            top: -48px;
-            left: 16px;
-            z-index: 100;
-            background: var(--accent-strong);
-            color: #1a1610;
-            padding: 9px 16px;
-            font-size: 11px;
-            font-weight: 500;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: top 0.2s ease;
-        }
-
-        .skip-link:focus {
-            top: 14px;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* ── FOCO DE TECLADO ── */
-        a:focus-visible,
-        button:focus-visible,
-        tr:focus-visible,
-        .punto:focus-visible {
-            outline: none;
-            box-shadow: var(--focus-ring);
+            line-height: 1.6;
+            transition: background 0.25s, color 0.25s;
         }
 
         /* ── HEADER ── */
         header {
             border-bottom: 1px solid var(--border);
-            padding: 22px 26px 20px;
+            padding: 18px 20px 14px;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 14px;
             background: var(--surface);
         }
@@ -105,22 +64,8 @@
         header h1 {
             font-family: 'Fraunces', serif;
             font-weight: 300;
-            font-size: 19px;
-            letter-spacing: -0.3px;
-            color: var(--text);
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: var(--accent-pastel-bg);
-            color: var(--accent-pastel-text);
-            font-size: 9.5px;
-            font-weight: 500;
-            letter-spacing: 0.07em;
-            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: -0.4px;
         }
 
         /* ── MAIN LAYOUT ── */
@@ -129,16 +74,18 @@
             display: flex;
             flex-direction: column;
             min-height: 0;
+            gap: 0;
         }
 
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
+            gap: 0;
             min-height: 0;
         }
 
-        /* ── PANEL IZQUIERDO (TABLA) ── */
+        /* ── PANEL LEFT (TABLA) ── */
         .panel-left {
             flex: 0 0 auto;
             border-bottom: 1px solid var(--border);
@@ -148,88 +95,23 @@
             overflow-x: hidden;
         }
 
-        /* ── PANEL DERECHO (INFO) ── */
-        .panel-right {
-            flex: 0 0 auto;
-            border-top: 1px solid var(--border);
-            background: var(--surface);
-            padding: 20px;
-            max-height: 25vh;
-            overflow-y: auto;
-        }
-
-        .panel-titulo {
-            font-family: 'Fraunces', serif;
-            font-weight: 300;
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-soft);
-        }
-
-        .info-contenido {
-            display: grid;
-            gap: 0;
-            font-size: 11px;
-        }
-
-        .info-fila {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 7px 0;
-            border-bottom: 1px solid var(--border-soft);
-        }
-
-        .info-fila:last-of-type {
-            border-bottom: none;
-        }
-
-        .info-label {
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .info-valor {
-            color: var(--accent-strong);
-            font-weight: 500;
-            font-family: 'DM Mono', monospace;
-        }
-
-        .info-sin-seleccion {
-            color: var(--text-faint);
-            font-size: 10.5px;
-            text-align: left;
-            padding: 6px 2px;
-            font-style: italic;
-        }
-
-        .panel-left::-webkit-scrollbar,
-        .panel-right::-webkit-scrollbar {
+        .panel-left::-webkit-scrollbar {
             width: 4px;
         }
 
-        .panel-left::-webkit-scrollbar-thumb,
-        .panel-right::-webkit-scrollbar-thumb {
-            background: var(--border);
+        .panel-left::-webkit-scrollbar-thumb {
+            background: var(--border2);
             border-radius: 2px;
         }
 
-        /* ── ENCABEZADO DE TABLA ── */
+        /* ── TABLE HEAD ── */
         .tbl-head {
-            padding: 14px 20px 11px;
+            padding: 12px 18px 10px;
             border-bottom: 1px solid var(--border);
             background: var(--surface2);
             position: sticky;
             top: 0;
             z-index: 10;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
         }
 
         .tbl-head h2 {
@@ -239,12 +121,7 @@
             color: var(--text);
         }
 
-        .tbl-head .conteo {
-            font-size: 10px;
-            color: var(--text-faint);
-        }
-
-        /* ── TABLA ── */
+        /* ── TABLE ── */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -254,160 +131,144 @@
         thead {
             background: var(--surface2);
             position: sticky;
-            top: 43px;
+            top: 50px;
             z-index: 9;
         }
 
         th {
-            padding: 9px 10px;
+            padding: 8px 10px;
             text-align: center;
             font-weight: 500;
             border-bottom: 1px solid var(--border);
             color: var(--text-muted);
             font-size: 9px;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
         td {
             padding: 8px 10px;
             text-align: center;
-            border-bottom: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border);
             color: var(--text);
             font-size: 11px;
         }
 
         tbody tr {
-            transition: background 0.15s ease, color 0.15s ease;
+            transition: background 0.15s;
             cursor: pointer;
         }
 
         tbody tr:hover {
-            background: var(--accent-pastel-bg);
-            color: var(--accent-strong);
+            background: var(--accent-light);
+            color: var(--accent);
         }
 
         tbody tr.activo {
-            background: var(--accent-pastel-bg);
-            color: var(--accent-strong);
+            background: var(--accent-light);
+            color: var(--accent);
             font-weight: 500;
-            box-shadow: inset 3px 0 0 var(--accent);
         }
 
-        /* ── ÁREA DE CANVAS ── */
+        /* ── CANVAS AREA ── */
         .canvas-area {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 22px;
+            padding: 20px;
             background: var(--bg);
             min-height: 0;
+            position: relative;
+            overflow: hidden;
         }
 
         svg {
             width: 100%;
             height: 100%;
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            max-width: 500px;
+            max-height: 500px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
             background: var(--surface);
             user-select: none;
-            box-shadow: var(--shadow-soft);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
         }
 
         .punto {
             cursor: pointer;
-            transition: r 0.2s ease, fill 0.2s ease;
+            transition: r 0.2s, fill 0.2s;
         }
 
         .punto:hover {
-            r: 2.8;
-            fill: var(--accent-strong);
+            r: 2.2;
+            fill: var(--accent);
+            filter: drop-shadow(0 0 3px rgba(201, 168, 118, 0.5));
         }
 
         .punto.activo {
-            r: 2.4;
-            fill: var(--accent-strong);
-            filter: drop-shadow(0 0 3px rgba(232, 192, 118, 0.35));
+            r: 2.5;
+            fill: var(--accent);
+            filter: drop-shadow(0 0 6px rgba(201, 168, 118, 0.85));
         }
 
         .punto-label {
             pointer-events: none;
-            font-size: 4.2px;
-            fill: var(--accent-strong);
-            font-weight: 600;
+            fill: var(--accent);
+            font-weight: bold;
             font-family: 'DM Mono', monospace;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-
-        .punto-label.visible {
-            opacity: 1;
         }
 
         .punto-label-bg {
-            fill: var(--surface2);
-            stroke: var(--border);
-            stroke-width: 0.15;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-
-        .punto-label-bg.visible {
-            opacity: 1;
+            fill: var(--surface);
+            rx: 1;
+            ry: 1;
         }
 
         .eje {
-            stroke: var(--text-faint);
-            stroke-width: 1;
+            stroke: var(--canvas-axis);
+            stroke-width: 1.5;
         }
 
         .cuadricula {
-            stroke: var(--border-soft);
-            stroke-width: 0.4;
+            stroke: var(--canvas-grid);
+            stroke-width: 0.5;
         }
 
         .etiqueta-eje {
-            font-size: 4.2px;
-            fill: var(--text-faint);
+            fill: var(--canvas-axis-label);
             text-anchor: middle;
             font-family: 'DM Mono', monospace;
-        }
-
-        .etiqueta-eje.principal {
-            font-size: 6px;
-            font-weight: 600;
-            fill: var(--text-muted);
         }
 
         /* ── FOOTER ── */
         footer {
             border-top: 1px solid var(--border);
-            padding: 14px 20px;
+            padding: 12px 20px;
             background: var(--surface);
             text-align: center;
             font-size: 11px;
             color: var(--text-muted);
             display: flex;
             justify-content: center;
-            gap: 18px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        footer .separador {
-            color: var(--text-faint);
+        footer span {
+            display: inline;
         }
 
         /* ── RESPONSIVE (MOBILE-FIRST) ── */
         @media (min-width: 1024px) {
             main {
                 flex-direction: row;
+                gap: 0;
             }
 
             .panel-left {
-                flex: 0 0 290px;
+                flex: 0 0 280px;
                 max-height: none;
                 border-right: 1px solid var(--border);
                 border-bottom: none;
@@ -415,30 +276,21 @@
 
             .main-content {
                 flex: 1;
-                flex-direction: row;
             }
 
             .canvas-area {
                 flex: 1;
-                padding: 28px;
-            }
-
-            .panel-right {
-                flex: 0 0 290px;
-                border-top: none;
-                border-left: 1px solid var(--border);
-                max-height: none;
-                padding: 22px;
+                padding: 20px;
             }
 
             header h1 {
-                font-size: 21px;
+                font-size: 20px;
             }
         }
 
         @media (max-width: 1023px) {
             header {
-                padding: 16px 18px 14px;
+                padding: 14px 16px 10px;
             }
 
             header h1 {
@@ -446,47 +298,35 @@
             }
 
             .canvas-area {
-                padding: 18px;
+                padding: 15px;
             }
 
             footer {
                 gap: 12px;
                 font-size: 10px;
-                padding: 12px 18px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                transition-duration: 0.001ms !important;
-                animation-duration: 0.001ms !important;
+                padding: 10px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
-
     <header>
         <h1>Círculo en Plano Cartesiano</h1>
-        <span class="tag">150 puntos</span>
     </header>
 
-    <main id="contenido-principal">
+    <main>
         <!-- TABLA IZQUIERDA -->
-        <div class="panel-left" role="region" aria-label="Tabla de coordenadas">
+        <div class="panel-left">
             <div class="tbl-head">
                 <h2>Coordenadas</h2>
-                <span class="conteo">150 registros</span>
             </div>
             <table id="tabla">
-                <caption class="sr-only">Coordenadas cartesianas y ángulo de cada uno de los 150 puntos sobre la circunferencia. Selecciona una fila para resaltar el punto correspondiente en el gráfico.</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Punto</th>
-                        <th scope="col">X (cm)</th>
-                        <th scope="col">Y (cm)</th>
-                        <th scope="col">Ángulo</th>
+                        <th>Punto</th>
+                        <th>X (cm)</th>
+                        <th>Y (cm)</th>
+                        <th>Ángulo</th>
                     </tr>
                 </thead>
                 <tbody id="cuerpo-tabla">
@@ -498,7 +338,7 @@
         <div class="main-content">
             <!-- CANVAS -->
             <div class="canvas-area">
-                <svg id="grafico" viewBox="-30 -30 60 60" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Gráfico del plano cartesiano con 150 puntos distribuidos equidistantemente sobre una circunferencia de radio 20 centímetros">
+                <svg id="grafico" viewBox="-30 -30 60 60" preserveAspectRatio="xMidYMid meet">
                     <!-- Cuadrícula -->
                     <g class="cuadricula" id="cuadricula"></g>
 
@@ -507,38 +347,26 @@
                     <line class="eje" x1="0" y1="-25" x2="0" y2="25" />
 
                     <!-- Flechas de ejes -->
-                    <polygon points="25,0 23,-1 23,1" fill="var(--text-faint)" />
-                    <polygon points="0,-25 -1,-23 1,-23" fill="var(--text-faint)" />
+                    <polygon points="25,0 23,-1 23,1" fill="var(--canvas-axis)" />
+                    <polygon points="0,-25 -1,-23 1,-23" fill="var(--canvas-axis)" />
 
                     <!-- Círculo (referencia visual) -->
-                    <circle cx="0" cy="0" r="20" fill="none" stroke="var(--border)" stroke-width="0.3" stroke-dasharray="1.5,1.5" />
+                    <circle cx="0" cy="0" r="20" fill="none" stroke="var(--border)" stroke-width="0.8" stroke-dasharray="2,2" />
 
                     <!-- Puntos -->
                     <g id="puntos"></g>
                 </svg>
-            </div>
-
-            <!-- PANEL INFO DERECHA -->
-            <div class="panel-right" role="region" aria-label="Información del punto seleccionado">
-                <div class="panel-titulo">Información del punto</div>
-                <div class="info-contenido" id="info-contenido" aria-live="polite">
-                    <div class="info-sin-seleccion">Selecciona un punto para ver sus propiedades</div>
-                </div>
             </div>
         </div>
     </main>
 
     <footer>
         <span>David Hernández Gutiérrez</span>
-        <span class="separador">·</span>
         <span>Ulises Ortiz Vázquez</span>
-        <span class="separador">·</span>
         <span>Temas Selectos de Matemáticas</span>
     </footer>
 
     <script>
-        const SVG_NS = 'http://www.w3.org/2000/svg';
-
         // Generar datos de los 150 puntos
         const radio = 20;
         const numPuntos = 150;
@@ -563,140 +391,167 @@
         puntos.forEach((punto) => {
             const fila = document.createElement('tr');
             fila.dataset.punto = punto.numero;
-            fila.tabIndex = 0;
-            fila.setAttribute('role', 'button');
-            fila.setAttribute('aria-label', `Punto ${punto.numero}: X ${punto.x.toFixed(2)} centímetros, Y ${punto.y.toFixed(2)} centímetros, ángulo ${punto.angulo} grados`);
             fila.innerHTML = `
                 <td>${punto.numero}</td>
                 <td>${punto.x.toFixed(2)}</td>
                 <td>${punto.y.toFixed(2)}</td>
                 <td>${punto.angulo}°</td>
             `;
-            fila.addEventListener('click', () => seleccionarPunto(punto.numero));
-            fila.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    seleccionarPunto(punto.numero);
-                }
-            });
+            fila.addEventListener('click', () => seleccionarDesdeTabla(punto.numero));
             cuerpoTabla.appendChild(fila);
         });
 
         const svgGrafico = document.getElementById('grafico');
+
+        // Crear cuadrícula, ejes y medidas
         const cuadricula = document.getElementById('cuadricula');
-
-        // Cuadrícula, marcas y numeración de ejes (siempre visibles)
+        
+        // Agregar marcas y números en los ejes
+        
         for (let i = -20; i <= 20; i++) {
-            if (i === 0) continue;
+            if (i !== 0) {
+                // Líneas de cuadrícula
+                const lineaV = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                lineaV.setAttribute('x1', i);
+                lineaV.setAttribute('y1', '-25');
+                lineaV.setAttribute('x2', i);
+                lineaV.setAttribute('y2', '25');
+                if (i % 5 === 0) {
+                    lineaV.setAttribute('stroke-width', '0.8');
+                    lineaV.setAttribute('stroke', 'var(--border)');
+                } else {
+                    lineaV.setAttribute('stroke-width', '0.3');
+                    lineaV.setAttribute('stroke', 'var(--canvas-grid)');
+                }
+                cuadricula.appendChild(lineaV);
 
-            const lineaV = document.createElementNS(SVG_NS, 'line');
-            lineaV.setAttribute('x1', i);
-            lineaV.setAttribute('y1', '-25');
-            lineaV.setAttribute('x2', i);
-            lineaV.setAttribute('y2', '25');
-            lineaV.setAttribute('stroke-width', i % 5 === 0 ? '0.6' : '0.3');
-            lineaV.setAttribute('stroke', i % 5 === 0 ? 'var(--border)' : 'var(--border-soft)');
-            cuadricula.appendChild(lineaV);
+                const lineaH = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                lineaH.setAttribute('x1', '-25');
+                lineaH.setAttribute('y1', i);
+                lineaH.setAttribute('x2', '25');
+                lineaH.setAttribute('y2', i);
+                if (i % 5 === 0) {
+                    lineaH.setAttribute('stroke-width', '0.8');
+                    lineaH.setAttribute('stroke', 'var(--border)');
+                } else {
+                    lineaH.setAttribute('stroke-width', '0.3');
+                    lineaH.setAttribute('stroke', 'var(--canvas-grid)');
+                }
+                cuadricula.appendChild(lineaH);
 
-            const lineaH = document.createElementNS(SVG_NS, 'line');
-            lineaH.setAttribute('x1', '-25');
-            lineaH.setAttribute('y1', i);
-            lineaH.setAttribute('x2', '25');
-            lineaH.setAttribute('y2', i);
-            lineaH.setAttribute('stroke-width', i % 5 === 0 ? '0.6' : '0.3');
-            lineaH.setAttribute('stroke', i % 5 === 0 ? 'var(--border)' : 'var(--border-soft)');
-            cuadricula.appendChild(lineaH);
+                // Marcas en los ejes (pequeñas líneas)
+                if (i % 5 === 0) {
+                    // Marca en eje X
+                    const marcaX = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    marcaX.setAttribute('x1', i);
+                    marcaX.setAttribute('y1', '-0.8');
+                    marcaX.setAttribute('x2', i);
+                    marcaX.setAttribute('y2', '0.8');
+                    marcaX.setAttribute('stroke', 'var(--canvas-axis)');
+                    marcaX.setAttribute('stroke-width', '0.6');
+                    cuadricula.appendChild(marcaX);
 
-            if (i % 5 !== 0) continue;
+                    // Marca en eje Y
+                    const marcaY = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    marcaY.setAttribute('x1', '-0.8');
+                    marcaY.setAttribute('y1', i);
+                    marcaY.setAttribute('x2', '0.8');
+                    marcaY.setAttribute('y2', i);
+                    marcaY.setAttribute('stroke', 'var(--canvas-axis)');
+                    marcaY.setAttribute('stroke-width', '0.6');
+                    cuadricula.appendChild(marcaY);
 
-            // Marca en eje X
-            const marcaX = document.createElementNS(SVG_NS, 'line');
-            marcaX.setAttribute('x1', i);
-            marcaX.setAttribute('y1', '-0.7');
-            marcaX.setAttribute('x2', i);
-            marcaX.setAttribute('y2', '0.7');
-            marcaX.setAttribute('stroke', 'var(--text-faint)');
-            marcaX.setAttribute('stroke-width', '0.5');
-            cuadricula.appendChild(marcaX);
+                    // Números en eje X
+                    if (i !== 0) {
+                        const textoX = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        textoX.setAttribute('x', i);
+                        textoX.setAttribute('y', '3');
+                        textoX.setAttribute('class', 'etiqueta-eje');
+                        textoX.style.fontSize = '2.3px';
+                        textoX.textContent = i;
+                        cuadricula.appendChild(textoX);
 
-            // Marca en eje Y
-            const marcaY = document.createElementNS(SVG_NS, 'line');
-            marcaY.setAttribute('x1', '-0.7');
-            marcaY.setAttribute('y1', i);
-            marcaY.setAttribute('x2', '0.7');
-            marcaY.setAttribute('y2', i);
-            marcaY.setAttribute('stroke', 'var(--text-faint)');
-            marcaY.setAttribute('stroke-width', '0.5');
-            cuadricula.appendChild(marcaY);
-
-            // Números en eje X
-            const textoX = document.createElementNS(SVG_NS, 'text');
-            textoX.setAttribute('x', i);
-            textoX.setAttribute('y', '3.2');
-            textoX.setAttribute('class', 'etiqueta-eje');
-            textoX.textContent = i;
-            cuadricula.appendChild(textoX);
-
-            // Números en eje Y
-            const textoY = document.createElementNS(SVG_NS, 'text');
-            textoY.setAttribute('x', '-1.7');
-            textoY.setAttribute('y', i + 0.9);
-            textoY.setAttribute('class', 'etiqueta-eje');
-            textoY.setAttribute('text-anchor', 'end');
-            textoY.textContent = i;
-            cuadricula.appendChild(textoY);
+                        // Números en eje Y
+                        const textoY = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        textoY.setAttribute('x', '-2');
+                        textoY.setAttribute('y', i + 0.9);
+                        textoY.setAttribute('class', 'etiqueta-eje');
+                        textoY.style.fontSize = '2.3px';
+                        textoY.style.textAnchor = 'end';
+                        textoY.textContent = i;
+                        cuadricula.appendChild(textoY);
+                    }
+                }
+            }
         }
 
-        // Etiquetas principales de ejes
-        const ejesGroup = document.createElementNS(SVG_NS, 'g');
+        // Agregar etiquetas principales de ejes
+        const ejesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         ejesGroup.id = 'ejes-labels';
 
-        const etiquetasPrincipales = [
-            { x: 27, y: 1.8, texto: 'X' },
-            { x: -27, y: 1.8, texto: '-X' },
-            { x: 1.8, y: -26.5, texto: 'Y' },
-            { x: 1.8, y: 27.5, texto: '-Y' }
-        ];
-        etiquetasPrincipales.forEach(({ x, y, texto }) => {
-            const el = document.createElementNS(SVG_NS, 'text');
-            el.setAttribute('x', x);
-            el.setAttribute('y', y);
-            el.setAttribute('class', 'etiqueta-eje principal');
-            el.textContent = texto;
-            ejesGroup.appendChild(el);
-        });
+        const textX = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textX.setAttribute('x', '27');
+        textX.setAttribute('y', '1.5');
+        textX.setAttribute('class', 'etiqueta-eje');
+        textX.style.fontSize = '3px';
+        textX.setAttribute('font-weight', 'bold');
+        textX.textContent = 'X';
+        ejesGroup.appendChild(textX);
 
-        const circleRef = svgGrafico.querySelector('circle');
+        const textNegX = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textNegX.setAttribute('x', '-27');
+        textNegX.setAttribute('y', '1.5');
+        textNegX.setAttribute('class', 'etiqueta-eje');
+        textNegX.style.fontSize = '3px';
+        textNegX.setAttribute('font-weight', 'bold');
+        textNegX.textContent = '-X';
+        ejesGroup.appendChild(textNegX);
+
+        const textY = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textY.setAttribute('x', '1.5');
+        textY.setAttribute('y', '-27');
+        textY.setAttribute('class', 'etiqueta-eje');
+        textY.style.fontSize = '3px';
+        textY.setAttribute('font-weight', 'bold');
+        textY.textContent = 'Y';
+        ejesGroup.appendChild(textY);
+
+        const textNegY = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textNegY.setAttribute('x', '1.5');
+        textNegY.setAttribute('y', '27');
+        textNegY.setAttribute('class', 'etiqueta-eje');
+        textNegY.style.fontSize = '3px';
+        textNegY.setAttribute('font-weight', 'bold');
+        textNegY.textContent = '-Y';
+        ejesGroup.appendChild(textNegY);
+
+        // Insertar antes del círculo
+        const circleRef = document.querySelector('circle');
         svgGrafico.insertBefore(ejesGroup, circleRef);
 
+        // Hacer el círculo más fino
+        const circulo = document.querySelector('circle');
+        circulo.setAttribute('stroke-width', '0.3');
+
         // Crear puntos en SVG
-        const grupoPuntos = document.getElementById('puntos');
-        const puntosMap = {};
-        const grupoLabels = document.createElementNS(SVG_NS, 'g');
+        const gruPuntos = document.getElementById('puntos');
+        const puntosMap = {}; // Para acceso rápido
+        const grupoLabels = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         grupoLabels.id = 'punto-labels';
         svgGrafico.appendChild(grupoLabels);
 
         puntos.forEach((punto) => {
-            const circuloPunto = document.createElementNS(SVG_NS, 'circle');
+            const circuloPunto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             circuloPunto.setAttribute('cx', punto.x);
-            circuloPunto.setAttribute('cy', -punto.y); // Invertir Y para que coincida con el cartesiano
+            circuloPunto.setAttribute('cy', -punto.y); // Invertir Y para que coincida con cartesiano
             circuloPunto.setAttribute('r', '0.8');
-            circuloPunto.setAttribute('fill', 'var(--accent)');
+            circuloPunto.setAttribute('fill', 'var(--point)');
             circuloPunto.setAttribute('class', 'punto');
             circuloPunto.dataset.punto = punto.numero;
-            circuloPunto.setAttribute('tabindex', '0');
-            circuloPunto.setAttribute('role', 'button');
-            circuloPunto.setAttribute('aria-label', `Punto ${punto.numero}: X ${punto.x.toFixed(2)} centímetros, Y ${punto.y.toFixed(2)} centímetros, ángulo ${punto.angulo} grados`);
 
-            circuloPunto.addEventListener('click', () => seleccionarPunto(punto.numero));
-            circuloPunto.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    seleccionarPunto(punto.numero);
-                }
-            });
+            circuloPunto.addEventListener('click', () => seleccionarDesdeGrafico(punto.numero));
 
-            grupoPuntos.appendChild(circuloPunto);
+            gruPuntos.appendChild(circuloPunto);
             puntosMap[punto.numero] = {
                 elemento: circuloPunto,
                 datos: punto
@@ -707,41 +562,54 @@
         let timerDeseleccion = null;
 
         function crearEtiquetaPunto(punto) {
+            // Limpiar etiquetas anteriores
             while (grupoLabels.firstChild) {
                 grupoLabels.removeChild(grupoLabels.firstChild);
             }
 
             const x = punto.datos.x;
             const y = -punto.datos.y;
+
             const textoInfo = `P${punto.datos.numero} (${punto.datos.x.toFixed(2)}, ${punto.datos.y.toFixed(2)}) ${punto.datos.angulo}°`;
 
-            // Crear texto primero para poder medir su caja real con getBBox
-            const texto = document.createElementNS(SVG_NS, 'text');
+            // Crear texto primero para poder medir su tamaño real
+            const texto = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             texto.setAttribute('x', x);
             texto.setAttribute('y', y - 3);
             texto.setAttribute('class', 'punto-label');
-            texto.setAttribute('text-anchor', 'middle');
+            texto.style.textAnchor = 'middle';
+            texto.style.fontSize = '2.3px';
             texto.textContent = textoInfo;
             grupoLabels.appendChild(texto);
 
-            // Fondo dimensionado dinámicamente según el ancho real del texto
-            const bbox = texto.getBBox();
-            const padX = 1;
-            const padY = 0.6;
-            const bg = document.createElementNS(SVG_NS, 'rect');
-            bg.setAttribute('x', bbox.x - padX);
-            bg.setAttribute('y', bbox.y - padY);
-            bg.setAttribute('width', bbox.width + padX * 2);
-            bg.setAttribute('height', bbox.height + padY * 2);
-            bg.setAttribute('rx', '0.6');
-            bg.setAttribute('class', 'punto-label-bg');
-            grupoLabels.insertBefore(bg, texto);
+            // Evitar que la etiqueta se salga del lienzo cerca de los bordes
+            const caja = texto.getBBox();
+            const margen = 28;
+            let dx = 0;
+            if (caja.x < -margen) dx = -margen - caja.x;
+            else if (caja.x + caja.width > margen) dx = margen - (caja.x + caja.width);
+            if (dx !== 0) {
+                texto.setAttribute('x', x + dx);
+            }
+            const cajaFinal = texto.getBBox();
 
-            // Desvanecido de entrada, sutil
-            requestAnimationFrame(() => {
-                texto.classList.add('visible');
-                bg.classList.add('visible');
-            });
+            // Fondo ajustado al tamaño real del texto
+            const relleno = 0.8;
+            const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bg.setAttribute('x', cajaFinal.x - relleno);
+            bg.setAttribute('y', cajaFinal.y - relleno * 0.5);
+            bg.setAttribute('width', cajaFinal.width + relleno * 2);
+            bg.setAttribute('height', cajaFinal.height + relleno);
+            bg.setAttribute('class', 'punto-label-bg');
+            bg.setAttribute('stroke', 'var(--accent)');
+            bg.setAttribute('stroke-width', '0.15');
+            grupoLabels.insertBefore(bg, texto);
+        }
+
+        function mostrarEtiqueta(numero) {
+            if (puntosMap[numero]) {
+                crearEtiquetaPunto(puntosMap[numero]);
+            }
         }
 
         function ocultarEtiqueta() {
@@ -750,44 +618,13 @@
             }
         }
 
-        function actualizarPanelInfo(numero) {
-            const punto = puntos[numero];
-            const infoCont = document.getElementById('info-contenido');
-
-            infoCont.innerHTML = `
-                <div class="info-fila">
-                    <span class="info-label">Punto:</span>
-                    <span class="info-valor">${numero}</span>
-                </div>
-                <div class="info-fila">
-                    <span class="info-label">X:</span>
-                    <span class="info-valor">${punto.x.toFixed(4)} cm</span>
-                </div>
-                <div class="info-fila">
-                    <span class="info-label">Y:</span>
-                    <span class="info-valor">${punto.y.toFixed(4)} cm</span>
-                </div>
-                <div class="info-fila">
-                    <span class="info-label">Ángulo:</span>
-                    <span class="info-valor">${punto.angulo}°</span>
-                </div>
-                <div class="info-fila">
-                    <span class="info-label">Radio:</span>
-                    <span class="info-valor">20 cm</span>
-                </div>
-            `;
-        }
-
-        function limpiarPanelInfo() {
-            const infoCont = document.getElementById('info-contenido');
-            infoCont.innerHTML = '<div class="info-sin-seleccion">Selecciona un punto para ver sus propiedades</div>';
-        }
-
-        function seleccionarPunto(numero) {
+        // Seleccionar desde tabla
+        function seleccionarDesdeTabla(numero) {
             clearTimeout(timerDeseleccion);
             puntoActualSeleccionado = numero;
 
-            document.querySelectorAll('#cuerpo-tabla tr').forEach((fila) => {
+            // Actualizar tabla
+            document.querySelectorAll('#cuerpo-tabla tr').forEach(fila => {
                 fila.classList.remove('activo');
             });
             const filaActiva = document.querySelector(`#cuerpo-tabla tr[data-punto="${numero}"]`);
@@ -796,35 +633,67 @@
                 filaActiva.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            document.querySelectorAll('.punto').forEach((punto) => {
+            // Actualizar gráfico
+            document.querySelectorAll('.punto').forEach(punto => {
                 punto.classList.remove('activo');
             });
             const puntoSVG = puntosMap[numero];
             if (puntoSVG) {
                 puntoSVG.elemento.classList.add('activo');
-                crearEtiquetaPunto(puntoSVG);
-                actualizarPanelInfo(numero);
+                mostrarEtiqueta(numero);
             }
 
+            // Deseleccionar después de 10 segundos
             timerDeseleccion = setTimeout(() => {
                 deseleccionarPunto();
             }, 10000);
         }
 
-        function deseleccionarPunto() {
-            document.querySelectorAll('#cuerpo-tabla tr').forEach((fila) => {
+        // Seleccionar desde gráfico
+        function seleccionarDesdeGrafico(numero) {
+            clearTimeout(timerDeseleccion);
+            puntoActualSeleccionado = numero;
+
+            // Actualizar tabla
+            document.querySelectorAll('#cuerpo-tabla tr').forEach(fila => {
                 fila.classList.remove('activo');
             });
-            document.querySelectorAll('.punto').forEach((punto) => {
+            const filaActiva = document.querySelector(`#cuerpo-tabla tr[data-punto="${numero}"]`);
+            if (filaActiva) {
+                filaActiva.classList.add('activo');
+                filaActiva.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Actualizar gráfico
+            document.querySelectorAll('.punto').forEach(punto => {
+                punto.classList.remove('activo');
+            });
+            const puntoSVG = puntosMap[numero];
+            if (puntoSVG) {
+                puntoSVG.elemento.classList.add('activo');
+                mostrarEtiqueta(numero);
+            }
+
+            // Deseleccionar después de 10 segundos
+            timerDeseleccion = setTimeout(() => {
+                deseleccionarPunto();
+            }, 10000);
+        }
+
+        // Deseleccionar punto
+        function deseleccionarPunto() {
+            document.querySelectorAll('#cuerpo-tabla tr').forEach(fila => {
+                fila.classList.remove('activo');
+            });
+            document.querySelectorAll('.punto').forEach(punto => {
                 punto.classList.remove('activo');
             });
             ocultarEtiqueta();
-            limpiarPanelInfo();
             puntoActualSeleccionado = -1;
         }
 
         // Seleccionar punto 0 por defecto
-        seleccionarPunto(0);
+        seleccionarDesdeTabla(0);
     </script>
 </body>
 </html>
